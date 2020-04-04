@@ -10,7 +10,7 @@ error_exit()
 # use time as the tag
 UNIXTIME=$(date +%s)
 
-echo "Packaging application as a Dockerimage"
+echo "Packaging application as a Docker image"
 BUILD="docker build --rm \
                     --build-arg APPJAR=build/libs/imperative-0.0.1-SNAPSHOT.jar \
                     --tag kurron/showcase-imperative:${UNIXTIME} \
