@@ -1,10 +1,11 @@
 == Overview
-This project ...
+This project is a showcase of different projects under the Spring umbrella.  It uses Docker as the build and deployment substrate, avoiding platform-specific issues.
 
 == Guidebook
 Details about this project are contained in the link:guidebook/guidebook.adoc[guidebook] and should be considered mandatory reading prior to contributing to this project.
 
 == Prerequisites
+* Docker 19.03.6 or greater
 
 == Building
 
