@@ -39,6 +39,7 @@ CMD="docker run --hostname build-process \
               --no-daemon \
               --profile \
               --stacktrace \
+              --warning-mode all \
               clean build"
 echo "${CMD}"
 ${CMD} || error_exit "Build has failed"
