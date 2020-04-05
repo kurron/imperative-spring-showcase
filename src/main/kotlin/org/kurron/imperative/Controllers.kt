@@ -10,7 +10,5 @@ import org.springframework.web.bind.annotation.RestController
 class Echo {
 
     @GetMapping("/hello", produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun hello(): Map<String,String> {
-        return mapOf( "code" to randomHexString(), "operation" to randomHexString(), "trace-id" to randomHexString() )
-    }
+    fun hello() = mapOf( "operation" to randomHexString(), "code" to randomHexString(), "should not be sent" to "" )
 }

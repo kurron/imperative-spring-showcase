@@ -1,1 +1,11 @@
 ---
+spring:
+  jackson:
+    default-property-inclusion: non_empty
+    mapper:
+      sort_properties_alphabetically: true
+    serialization:
+      indent_output: true
+      write_null_map_values: false
+      write_empty_json_arrays: false
+      order_map_entries_by_keys: true
