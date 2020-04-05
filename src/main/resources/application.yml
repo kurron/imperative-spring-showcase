@@ -1,5 +1,9 @@
 ---
 management:
+  endpoint:
+    health:
+      show-details: always
+      show-components: always
   endpoints:
     web:
       exposure:
