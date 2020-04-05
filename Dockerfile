@@ -1,10 +1,10 @@
 FROM azul/zulu-openjdk:11 AS builder
 WORKDIR /tmp
 ARG APPJAR=build/libs/*.jar
-COPY ${APPJAR} app.jar
-RUN jar -xf ./app.jar
+COPY ${APPJAR} application.jar
+RUN jar -xf ./application.jar
 
-FROM azul/zulu-openjdk:11
+FROM azul/zulu-openjdk-alpine:11
 VOLUME /tmp
 ARG DEPENDENCY=/tmp
 COPY --from=builder ${DEPENDENCY}/BOOT-INF/lib /app/lib
