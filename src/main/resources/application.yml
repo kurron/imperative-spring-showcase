@@ -1,4 +1,13 @@
 ---
+debug: false
+logging:
+  file:
+    name: debug.txt
+  level:
+    root: INFO
+    org:
+      kurron:
+        imperative: TRACE
 management:
   endpoint:
     health:
@@ -18,3 +27,4 @@ spring:
       write_null_map_values: false
       write_empty_json_arrays: false
       order_map_entries_by_keys: true
+trace: false
