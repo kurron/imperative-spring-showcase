@@ -1,5 +1,9 @@
 ---
 debug: false
+info:
+  application:
+    name: Imperative Spring
+    description: Demonstration of Spring written in Kotlin using the imparative programming model
 logging:
   file:
     name: debug.txt
