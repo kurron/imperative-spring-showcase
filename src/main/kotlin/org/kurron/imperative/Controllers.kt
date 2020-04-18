@@ -1,5 +1,6 @@
 package org.kurron.imperative
 
+import org.slf4j.LoggerFactory.getLogger
 import org.springframework.hateoas.Link
 import org.springframework.hateoas.mediatype.vnderrors.VndErrors
 import org.springframework.http.HttpStatus
@@ -37,8 +38,13 @@ class Echo {
 @RestControllerAdvice
 class GlobalExceptionHandler: ResponseEntityExceptionHandler() {
 
+    companion object {
+        private val logger = getLogger(GlobalExceptionHandler::class.java)
+    }
+
     @ExceptionHandler( Exception::class )
     fun fallbackHandler(failure: Exception): ResponseEntity<VndErrors> {
+        logger.debug( "fallbackHandler called" )
         // Links to a resource that this error is related to. See RFC6903 for further details.
         val about = Link( "about", "https://help.example.com/general-failure" )
         return wrapDetails(failure.message!!, INTERNAL_SERVER_ERROR, randomHexString(), about)
@@ -46,6 +52,7 @@ class GlobalExceptionHandler: ResponseEntityExceptionHandler() {
 
     @ExceptionHandler( RandomFailure::class )
     fun randomFailureHandler(failure: Exception): ResponseEntity<VndErrors> {
+        logger.debug( "randomFailureHandler called" )
         // Links to a resource that this error is related to. See RFC6903 for further details.
         val about = Link( "about", "https://help.example.com/random-failure" )
         return wrapDetails(failure.message!!, I_AM_A_TEAPOT, randomHexString(), about)
