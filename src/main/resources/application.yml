@@ -11,7 +11,7 @@ logging:
       kurron:
         imperative: TRACE
   pattern:
-    level: trace-id:%mdc{trace-id:-0} code:%mdc{message-code:-0} %5p
+    level: trace-id:%3mdc{trace-id:-0} code:%3mdc{message-code:-0} %5p
 management:
   endpoint:
     health:
