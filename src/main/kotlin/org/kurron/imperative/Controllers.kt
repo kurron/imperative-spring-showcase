@@ -1,6 +1,5 @@
 package org.kurron.imperative
 
-import org.springframework.http.HttpStatus.CONFLICT
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -23,7 +22,7 @@ class Echo {
     fun sorted() = Stuff( randomHexString(), randomHexString(), randomHexString(), "" )
 
     @GetMapping("/failure", produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun failure(): Stuff = if ( ThreadLocalRandom.current().nextBoolean() ) Stuff( randomHexString(), randomHexString(), randomHexString(), "" ) else throw ApplicationException( 1234, CONFLICT, "Simulated failure!")
+    fun failure(): Stuff = if ( ThreadLocalRandom.current().nextBoolean() ) Stuff( randomHexString(), randomHexString(), randomHexString(), "" ) else throw ApplicationException( ApplicationFailures.RANDOM_FAILURE, "Ignored" )
 }
 
 
