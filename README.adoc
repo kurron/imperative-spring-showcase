@@ -23,3 +23,12 @@ Details about this project are contained in the link:guidebook/guidebook.adoc[gu
 * Patrick Kua offered https://www.safaribooksonline.com/library/view/oreilly-software-architecture/9781491985274/video315451.html[his thoughts on a travel guide to a software system] which has been link:travel-guide/travel-guide.adoc[captured in this template].
 
 == List of Changes
+
+* secrets manager
+* SQS consumption
+* SNS publication
+* HTTP consumption from SNS (webhook)
+* ElastiCache
+* Amazon RDS
+* E-Mail via SES?
+* S3 upload, download and searching
