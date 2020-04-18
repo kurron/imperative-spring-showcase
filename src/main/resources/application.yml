@@ -5,13 +5,13 @@ info:
     name: Imperative Spring
     description: Demonstration of Spring written in Kotlin using the imparative programming model
 logging:
-  file:
-    name: debug.txt
   level:
     root: INFO
     org:
       kurron:
         imperative: TRACE
+  pattern:
+    level: trace-id:%mdc{trace-id:-0} code:%mdc{message-code:-0} %5p
 management:
   endpoint:
     health:
