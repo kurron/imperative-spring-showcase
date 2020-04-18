@@ -49,17 +49,18 @@ class GlobalExceptionHandler: ResponseEntityExceptionHandler() {
     @ExceptionHandler( Exception::class )
     fun fallbackHandler(failure: Exception): ResponseEntity<VndErrors> {
         logger.debug( "fallbackHandler called" )
-        // Links to a document describing the error. This has the same definition as the help link relation in the HTML5 specification
-        val help = Link( "help", "https://help.example.com/failure-codes/0" )
-        return wrapDetails(failure.message!!, HttpStatus.INTERNAL_SERVER_ERROR, randomHexString(), help)
+        return wrapDetails(failure.message!!, HttpStatus.INTERNAL_SERVER_ERROR, randomHexString(), assembleHelpLink( 0 ))
     }
 
     @ExceptionHandler( ApplicationException::class )
     fun applicationFailureHandler(failure: ApplicationException): ResponseEntity<VndErrors> {
         logger.debug( "randomFailureHandler called" )
+        return wrapDetails(failure.message!!, failure.context.status, randomHexString(), assembleHelpLink( failure.context.code ))
+    }
+
+    private fun assembleHelpLink( code: Int ): Link {
         // Links to a document describing the error. This has the same definition as the help link relation in the HTML5 specification
-        val help = Link( "help", "https://help.example.com/failure-codes/${failure.context.code}" )
-        return wrapDetails(failure.message!!, failure.context.status, randomHexString(), help)
+        return Link("help", "https://help.example.com/failure-codes/$code")
     }
 
     private fun wrapDetails(message:String, status: HttpStatus, logReference: String, help: Link): ResponseEntity<VndErrors> {
