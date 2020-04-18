@@ -13,7 +13,7 @@ data class Stuff( val zulu: String, val alpha: String, val hotel: String, val bl
 
 @RestController
 @RequestMapping("/echo")
-class Echo {
+class Echo: AbstractLogAware() {
 
     @GetMapping("/hello", produces = [MediaType.APPLICATION_JSON_VALUE])
     fun hello() = mapOf( "operation" to randomHexString(), "code" to randomHexString(), "should not be sent" to "" )
@@ -22,8 +22,18 @@ class Echo {
     fun sorted() = Stuff( randomHexString(), randomHexString(), randomHexString(), "" )
 
     @GetMapping("/failure", produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun failure(): Stuff = if ( ThreadLocalRandom.current().nextBoolean() ) Stuff( randomHexString(), randomHexString(), randomHexString(), "" ) else throw ApplicationException( ApplicationFailures.RANDOM_FAILURE, "Ignored" )
+    fun failure(): Stuff {
+        val shouldFail = ThreadLocalRandom.current().nextBoolean()
+        return if (shouldFail) {
+            feedback.send(ApplicationFeedback.GENERAL_FAILURE, "Oops!")
+            throw RandomizeFailure()
+        }
+        else {
+            feedback.send( ApplicationFeedback.TIMING_MESSAGE, ThreadLocalRandom.current().nextInt( Integer.MAX_VALUE ) )
+            Stuff(randomHexString(), randomHexString(), randomHexString(), "")
+        }
+    }
 }
 
-
-class RandomFailure(message: String? = "Simulated failure") : Exception(message)
+// just to show that application failures can also be housed in individual failure classes
+class RandomizeFailure: ApplicationException( ApplicationFeedback.RANDOM_FAILURE, "Hard coded." )

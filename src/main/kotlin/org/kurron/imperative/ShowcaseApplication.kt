@@ -4,11 +4,15 @@ import org.springframework.boot.actuate.health.Health
 import org.springframework.boot.actuate.health.HealthIndicator
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import org.springframework.context.annotation.Bean
 import org.springframework.stereotype.Component
 import java.util.concurrent.ThreadLocalRandom
 
 @SpringBootApplication
-class ShowcaseApplication
+class ShowcaseApplication {
+	@Bean
+	fun logAwareBeanPostProcessor() = FeedbackAwareBeanPostProcessor()
+}
 
 fun main(args: Array<String>) {
 	runApplication<ShowcaseApplication>(*args)
