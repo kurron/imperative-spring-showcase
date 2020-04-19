@@ -25,15 +25,16 @@ class Echo: AbstractLogAware() {
     fun failure(): Stuff {
         val shouldFail = ThreadLocalRandom.current().nextBoolean()
         return if (shouldFail) {
-            feedback.send(ApplicationFeedback.GENERAL_FAILURE, "Oops!")
+            feedback.send(LoggingFeedback.GENERAL_MESSAGE, "Oops!")
+//            feedback.send(LoggingFeedback.GENERAL_FAILURE, IllegalStateException("Show me the stack trace!"), "alpha", "bravo","charlie", "delta" )
             throw RandomizeFailure()
         }
         else {
-            feedback.send( ApplicationFeedback.TIMING_MESSAGE, ThreadLocalRandom.current().nextInt( Integer.MAX_VALUE ) )
+            feedback.send( LoggingFeedback.TIMING_MESSAGE, ThreadLocalRandom.current().nextInt( Integer.MAX_VALUE ) )
             Stuff(randomHexString(), randomHexString(), randomHexString(), "")
         }
     }
 }
 
-// just to show that application failures can also be housed in individual failure classes
-class RandomizeFailure: ApplicationException( ApplicationFeedback.RANDOM_FAILURE, "Hard coded." )
+// just to show that failures can also be housed in individual failure classes
+class RandomizeFailure: ApiException( ApiFeedback.RANDOM_FAILURE, "Hard coded." )

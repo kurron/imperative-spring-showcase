@@ -11,24 +11,32 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
 
 /**
- * The collection of all application feedback.  Used to assemble log messages and API responses.
+ * The collection of all API feedback, used to assemble REST responses.
  */
-enum class ApplicationFeedback: FeedbackContext {
+enum class ApiFeedback: RestContext {
     GENERAL_FAILURE {
-        override val code: Int get() = 1
+        override val code: Int get() = 100
         override val status: HttpStatus get() = HttpStatus.INTERNAL_SERVER_ERROR
         override val messageFormat: String get() = "A system failure has occurred: {}"
-        override val logLevel: Level get() = Level.ERROR
     },
     RANDOM_FAILURE {
-        override val code: Int get() = 2
+        override val code: Int get() = 101
         override val status: HttpStatus get() = HttpStatus.I_AM_A_TEAPOT
         override val messageFormat: String get() = "Forced to fail: {}"
-        override val logLevel: Level get() = Level.WARN
+    }
+}
+
+/**
+ * The collection of all logging feedback, used to assemble log and trace messages.
+ */
+enum class LoggingFeedback: LoggingContext {
+    GENERAL_MESSAGE {
+        override val code: Int get() = 200
+        override val messageFormat: String get() = "A system failure has occurred: {} {} {} {}"
+        override val logLevel: Level get() = Level.ERROR
     },
     TIMING_MESSAGE {
-        override val code: Int get() = 3
-        override val status: HttpStatus get() = HttpStatus.OK
+        override val code: Int get() = 201
         override val messageFormat: String get() = "Processing took {} milliseconds to complete."
         override val logLevel: Level get() = Level.DEBUG
     }
@@ -50,39 +58,43 @@ interface FeedbackContext {
     val code: Int
 
     /**
-     * What HTTP status code to use as a result of the scenario.
-     */
-    val status: HttpStatus
-
-    /**
      * SLF4J compatible message format, e.g. "Too many invocations. {} within the last {} seconds."
      */
     val messageFormat: String
+}
 
+interface LoggingContext: FeedbackContext {
     /**
      * When logging the scenario, what level to use.
      */
     val logLevel: Level
 }
 
-/**
- * Signals a failure scenario that was trapped by the application logic.
- */
-open class ApplicationException(val context: FeedbackContext, vararg messageArgument: Any): Exception(MessageFormatter.arrayFormat( context.messageFormat, messageArgument ).message )
+interface RestContext: FeedbackContext {
+    /**
+     * What HTTP status code to use as a result of the scenario.
+     */
+    val status: HttpStatus
+}
 
 /**
- * This class handles both application and system exceptions, translating them into the standard vnd.error format.
+ * Signals a failure scenario that was trapped by the application logic and should show up in the API response.
+ */
+open class ApiException(val context: RestContext, vararg messageArgument: Any): Exception(MessageFormatter.arrayFormat( context.messageFormat, messageArgument ).message )
+
+/**
+ * This class handles both application and system exceptions, translating them into the standard vnd.error format sent as the API response.
  */
 @RestControllerAdvice
-class GlobalExceptionHandler: ResponseEntityExceptionHandler() {
+class GlobalApiExceptionHandler: ResponseEntityExceptionHandler() {
 
     @ExceptionHandler( Exception::class )
     fun fallbackHandler(failure: Exception): ResponseEntity<VndErrors> {
         return wrapDetails(failure.message!!, HttpStatus.INTERNAL_SERVER_ERROR, randomHexString(), assembleHelpLink( 0 ))
     }
 
-    @ExceptionHandler( ApplicationException::class )
-    fun applicationFailureHandler(failure: ApplicationException): ResponseEntity<VndErrors> {
+    @ExceptionHandler( ApiException::class )
+    fun applicationFailureHandler(failure: ApiException): ResponseEntity<VndErrors> {
         return wrapDetails(failure.message!!, failure.context.status, randomHexString(), assembleHelpLink( failure.context.code ))
     }
 
