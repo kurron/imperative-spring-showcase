@@ -53,6 +53,7 @@ In order to keep the discussion relevant and civil (valuable outcome), authors (
 .*Starting Character Points*
 ****
 To create a character for a campaign, Players need to be allotted Character Points by the GM.
+
 * Feeble (under 25)
 * Average (25-50)
 * Competent (50-75)
@@ -70,6 +71,7 @@ To create a character for a campaign, Players need to know the Disadvantage poin
 .*Basic Attributes*
 ****
 To create a character for a campaign, Players need to allocate Character Points to following Character Attributes: Strength (ST), Dexterity (DX), Intelligence (IQ) and Health (HT).
+
 * A value of 10 in any attribute has no cost
 * Spending 10 Character Points will raise either ST or HT by one level
 * Spending 20 Character Points to raise either DX or IQ by one level
