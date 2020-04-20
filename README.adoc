@@ -56,6 +56,7 @@ NOTE: To create a character for a campaign, Players need to know the Disadvantag
 
 .*Basic Attributes*
 NOTE: To create a character for a campaign, Players need to allocate Character Points to following Character Attributes: Strength (ST), Dexterity (DX), Intelligence (IQ) and Health (HT).
+
 * A value of 10 in any attribute has no cost
 * Spending 10 Character Points will raise either ST or HT by one level
 * Spending 20 Character Points to raise either DX or IQ by one level
