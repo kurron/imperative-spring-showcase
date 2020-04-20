@@ -52,7 +52,14 @@ In order to keep the discussion relevant and civil (valuable outcome), authors (
 
 .*Starting Character Points*
 ****
-To create a character for a campaign, Players need to be allotted Character Points by the GM. Feeble (under 25), Average (25-50), Competent (50-75), Exceptional (75-100), Heroic (100-200),Larger Than-Life(200-300) and Legendary(300-500).
+To create a character for a campaign, Players need to be allotted Character Points by the GM.
+*Feeble (under 25)
+*Average (25-50)
+*Competent (50-75)
+*Exceptional (75-100)
+*Heroic (100-200)
+*Larger Than-Life(200-300)
+*Legendary(300-500).
 ****
 
 .*Disadvantage Limits*
