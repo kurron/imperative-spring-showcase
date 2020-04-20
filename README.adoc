@@ -47,3 +47,6 @@ Details about this project are contained in the link:guidebook/guidebook.adoc[gu
 == Stories
 .*Sample Card*
 NOTE: In order to keep the discussion relevant and civil (valuable outcome), authors (role in the domain) need to review and approve reader comments (domain-level work).
+
+.*Starting Character Points*
+NOTE: To create a character for a campaign, Players need to be allotted character points by the GM. Feeble (under 25), Average (25-50), Competent (50-75), Exceptional (75-100), Heroic (100-200),Larger Than-Life(200-300) and Legendary(300-500).
