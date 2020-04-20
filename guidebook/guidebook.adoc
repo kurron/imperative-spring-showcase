@@ -29,7 +29,7 @@ toc::[]
 . Is it clear what the system does from a process perspective?
 . What are the major processes and flows of information through the system?
 . Feel free to reference existing documentation
-. The goal is to provide and *overview*
+. The goal is to provide an *overview*
 . Sequence diagram when discussing automated business processes is useful
 . Technical and non-technical people, both inside and outside the immediate development team
 
