@@ -4,6 +4,7 @@ import org.springframework.boot.actuate.health.Health
 import org.springframework.boot.actuate.health.HealthIndicator
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.stereotype.Component
 import java.util.concurrent.ThreadLocalRandom
@@ -12,6 +13,13 @@ import java.util.concurrent.ThreadLocalRandom
 class ShowcaseApplication {
 	@Bean
 	fun logAwareBeanPostProcessor() = FeedbackAwareBeanPostProcessor()
+
+	@Bean
+	fun restTemplate() = RestTemplateBuilder().build()!!
+
+	// You would not sample EVERY data point in a production setting. There are more sophisticated samplers to select from.
+	@Bean
+	fun sampler() = brave.sampler.Sampler.ALWAYS_SAMPLE
 }
 
 fun main(args: Array<String>) {

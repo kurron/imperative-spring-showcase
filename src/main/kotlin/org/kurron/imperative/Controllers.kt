@@ -1,9 +1,11 @@
 package org.kurron.imperative
 
 import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.client.RestOperations
 import java.util.concurrent.ThreadLocalRandom
 
 /**
@@ -13,7 +15,7 @@ data class Stuff( val zulu: String, val alpha: String, val hotel: String, val bl
 
 @RestController
 @RequestMapping("/echo")
-class Echo: AbstractLogAware() {
+class Echo(private val template: RestOperations): AbstractLogAware() {
 
     @GetMapping("/hello", produces = [MediaType.APPLICATION_JSON_VALUE])
     fun hello() = mapOf( "operation" to randomHexString(), "code" to randomHexString(), "should not be sent" to "" )
@@ -33,6 +35,17 @@ class Echo: AbstractLogAware() {
             feedback.send( LoggingFeedback.TIMING_MESSAGE, ThreadLocalRandom.current().nextInt( Integer.MAX_VALUE ) )
             Stuff(randomHexString(), randomHexString(), randomHexString(), "")
         }
+    }
+
+    @GetMapping("/sleuth", produces = [MediaType.APPLICATION_JSON_VALUE])
+    fun sleuth(): ResponseEntity<String>  {
+        val resources = listOf( "/posts", "/comments","/albums", "/photos", "/todos", "/users")
+        val responses = resources.map { resource ->
+            val url = "https://jsonplaceholder.typicode.com/$resource"
+            feedback.send(LoggingFeedback.GET_MESSAGE, url )
+            template.getForEntity(url, String::class.java )
+        }
+        return ResponseEntity.ok( "Called ${responses.size} resources" )
     }
 }
 

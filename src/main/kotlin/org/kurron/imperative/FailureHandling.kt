@@ -39,6 +39,11 @@ enum class LoggingFeedback: LoggingContext {
         override val code: Int get() = 201
         override val messageFormat: String get() = "Processing took {} milliseconds to complete."
         override val logLevel: Level get() = Level.DEBUG
+    },
+    GET_MESSAGE {
+        override val code: Int get() = 202
+        override val messageFormat: String get() = "GETing {}"
+        override val logLevel: Level get() = Level.DEBUG
     }
 }
 
