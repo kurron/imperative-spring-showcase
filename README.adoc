@@ -55,7 +55,7 @@ NOTE: To create a character for a campaign, Players need to be allotted Characte
 NOTE: To create a character for a campaign, Players need to know the Disadvantage points limit set the GM. Default limit is 50% of starting Character Points.
 
 .*Basic Attributes*
-****
+====
 To create a character for a campaign, Players need to allocate Character Points to following Character Attributes: Strength (ST), Dexterity (DX), Intelligence (IQ) and Health (HT).
 
 * A value of 10 in any attribute has no cost
@@ -63,4 +63,4 @@ To create a character for a campaign, Players need to allocate Character Points 
 * Spending 20 Character Points to raise either DX or IQ by one level
 * Dropping either ST or HT by one level increases Character Points by 10
 * Dropping either DX or IQ by one level increases Character Points by 20
-****
+====
