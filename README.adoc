@@ -174,7 +174,7 @@ To create a character for a campaign, Players may purchase their character's kno
 
 .*Social Background: Literacy*
 ****
-To create a character for a campaign, Players may decided to reduce their character's native Language Comprehension to increase Character Points.
+To create a character for a campaign, Players may decide to reduce their character's native Language Comprehension to increase Character Points.
 
 * None (Illiterate) - add 3 points
 * Broken (Semi-literate) - add 2 points
@@ -197,12 +197,13 @@ To create a character for a campaign, Players must select their character's Weal
 
 .*Wealth and Influence: Reputation*
 ****
-To create a character for a campaign, Players may select their character's Reputation, which may increase or decrease Character Points.
+To create a character for a campaign, Players must select their character's Reputation, which may increase or decrease Character Points.
 
 * -4 penalty - add 20 points
 * -3 penalty - add 15 points
 * -2 penalty - add 10 points
 * -1 penalty - add 5 points
+* 0 bonus - add 0 points
 * +1 bonus - subtract 5 points
 * +2 bonus - subtract 10 points
 * +3 bonus - subtract 15 points
@@ -253,5 +254,23 @@ To create a character for a campaign, Players may select 0 or more Mental Quirks
 
 .*Quirk: Physical*
 ****
-To create a character for a campaign, Players mayy select 0 or more Physical Quirks from a catalog of Quirks. Each selected Quirk will add back points to the Character Points pool.
+To create a character for a campaign, Players may select 0 or more Physical Quirks from a catalog of Quirks. Each selected Quirk will add back points to the Character Points pool.
+****
+
+.*Skills*
+****
+To create a character for a campaign, Players may select 0 or more Skills from a catalog of Quirks. Each selected Skill will have a cost calculated from the following table:
+[grid="rows",format="csv"]
+[options="header"]
+|===
+Desired Skill Level,Easy,Average,Hard
+Attribute-3,-,-,-
+Attribute-2,-,-,1
+Attribute-1,-,1,2
+Attribute+0,1,2,4
+Attribute+1,2,4,8
+Attribute+2,4,8,12
+Attribute+3,8,12,16
+Extra +1,+4,+4,+4
+|===
 ****
