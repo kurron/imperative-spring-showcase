@@ -181,6 +181,39 @@ To create a character for a campaign, Players may decided to reduce their charac
 * Accented (Literate) - add 1 point
 ****
 
+.*Wealth and Influence: Wealth*
+****
+To create a character for a campaign, Players must select their character's Wealth, which may increase or decrease Character Points.
+
+* Dead Broke - add 25 points
+* Poor - add 15 points
+* Struggling - add 10 points
+* Average - add 0 points
+* Comfortable - subtract 10 points
+* Wealthy - subtract 20 points
+* Very Wealthy - subtract 30 points
+* Filthy Rich - subtract 50 points
+****
+
+.*Wealth and Influence: Reputation*
+****
+To create a character for a campaign, Players may select their character's Reputation, which may increase or decrease Character Points.
+
+* -4 penalty - add 20 points
+* -3 penalty - add 15 points
+* -2 penalty - add 10 points
+* -1 penalty - add 5 points
+* +1 bonus - subtract 5 points
+* +2 bonus - subtract 10 points
+* +3 bonus - subtract 15 points
+* +4 bonus - subtract 20 points
+****
+
+.*Wealth and Influence: Status*
+****
+To create a character for a campaign, Players must select their character's Status, which may increase or decrease Character Points. For every level increase, subtract 5 Character Points.  For every level decrease, add 5 Character Points.
+****
+
 .*Advantages: Fixed Cost*
 ****
 To create a character for a campaign, Players need purchase 0 or more fixed cost Advantages from a catalog of Advantages.
