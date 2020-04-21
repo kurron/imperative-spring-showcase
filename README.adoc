@@ -137,6 +137,26 @@ To create a character for a campaign, Players need their character's Dodge attri
 To create a character for a campaign, Players need their character's Basic Move attribute calculated for them. Basic Move is Basic Speed, dropping all decimals.
 ****
 
+.*Image and Looks: Appearance*
+****
+To create a character for a campaign, Players need to purchase their character's Appearance attribute from a catalog of Appearances.  The selection of an Appearance may increase or decrease the character's Character Points, depending on the selection.
+****
+
+.*Image and Looks: Charisma*
+****
+To create a character for a campaign, Players may purchase their character's Charisma attribute by spending 5 points per level.
+****
+
+.*Image and Looks: Odious Personal Habits (OPH)*
+****
+To create a character for a campaign, Players may select their character's Odious Personal Habit from a catalog and increase their Character Points.
+****
+
+.*Image and Looks: Voice*
+****
+To create a character for a campaign, Players may purchase their character's Voice attribute by spending 10 points.
+****
+
 .*Advantages: Fixed Cost*
 ****
 To create a character for a campaign, Players need purchase 0 or more fixed cost Advantages from a catalog of Advantages.
@@ -164,15 +184,17 @@ To create a character for a campaign, Players need which Disadvantages are contr
 
 .*Disadvantages: Fixed Cost*
 ****
-To create a character for a campaign, Players need to purchase 0 or more Disadvantages from a catalog of Disadvantages.
+To create a character for a campaign, Players need to purchase 0 or more Disadvantages from a catalog of Disadvantages. A "purchased" Disadvangate will add back points to the Character Points pool.
+
 ****
 
 .*Quirk: Mental*
 ****
-To create a character for a campaign, Players need to purchase 0 or more Mental Quirks from a catalog of Quirks.
+To create a character for a campaign, Players need to purchase 0 or more Mental Quirks from a catalog of Quirks. A "purchased" Quirk will add back points to the Character Points pool.
+
 ****
 
 .*Quirk: Physical*
 ****
-To create a character for a campaign, Players need to purchase 0 or more Physical Quirks from a catalog of Quirks.
+To create a character for a campaign, Players need to purchase 0 or more Physical Quirks from a catalog of Quirks. A "purchased" Quirk will add back points to the Character Points pool.
 ****
