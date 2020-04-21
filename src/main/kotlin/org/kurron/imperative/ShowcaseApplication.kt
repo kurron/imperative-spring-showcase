@@ -14,9 +14,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.runApplication
 import org.springframework.boot.web.client.RestTemplateBuilder
+import org.springframework.cloud.aws.messaging.config.QueueMessageHandlerFactory
 import org.springframework.cloud.aws.messaging.core.NotificationMessagingTemplate
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Profile
+import org.springframework.messaging.converter.MappingJackson2MessageConverter
+import org.springframework.messaging.handler.annotation.support.PayloadArgumentResolver
+import org.springframework.messaging.handler.annotation.support.PayloadMethodArgumentResolver
 import org.springframework.stereotype.Component
 import java.util.concurrent.ThreadLocalRandom
 
@@ -32,6 +36,16 @@ class ShowcaseApplication {
 	// You would not sample EVERY data point in a production setting. There are more sophisticated samplers to select from.
 	@Bean
 	fun sampler() = brave.sampler.Sampler.ALWAYS_SAMPLE!!
+
+	@Bean
+	@Profile("cloud", "development")
+	fun queueMessageHandlerFactory(): QueueMessageHandlerFactory {
+		val factory = QueueMessageHandlerFactory()
+		val converter = MappingJackson2MessageConverter()
+		converter.isStrictContentTypeMatch = false
+		factory.setArgumentResolvers( listOf( PayloadMethodArgumentResolver(converter) ) )
+		return factory
+	}
 
 	@Bean
 	@Profile("cloud", "development")

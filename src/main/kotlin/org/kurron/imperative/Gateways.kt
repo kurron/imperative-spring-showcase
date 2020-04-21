@@ -23,7 +23,7 @@ class NullNotificationServiceGateway: OutboundMessagingGateway {
 class SqsInboundMessageGateway {
 
     @SqsListener("alpha")
-    fun queueListener( event: String, @Headers headers: Map<String,String> ) {
+    fun queueListener( event: CharacterPointsAllocatedEvent, @Headers headers: Map<String,String> ) {
         val i = 1
     }
 }

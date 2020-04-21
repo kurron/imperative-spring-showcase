@@ -19,3 +19,11 @@ ${CREATE_SQS_QUEUE} || error_exit "Unable to create SQS Queue"
 BIND_QUEUE_TO_TOPIC="aws --endpoint-url=http://localhost:4575 sns subscribe --topic arn:aws:sns:us-east-1:000000000000:ronbo --protocol sqs --notification-endpoint arn:aws:sqs:us-east-1:000000000000:alpha"
 echo "${BIND_QUEUE_TO_TOPIC}"
 ${BIND_QUEUE_TO_TOPIC} || error_exit "Unable to bind Queue to Topic"
+
+SET_RAW_DELIVERY_ON_SUBSCRIPTION="aws --endpoint-url=http://localhost:4575 sns set-subscription-attributes --subscription-arn arn:aws:sns:us-east-1:000000000000:ronbo:31bab3ee-de00-4eaa-b7d0-247361688580 --attribute-name RawMessageDelivery --attribute-value true"
+echo "${SET_RAW_DELIVERY_ON_SUBSCRIPTION}"
+${SET_RAW_DELIVERY_ON_SUBSCRIPTION} || error_exit "Unable to set Raw Delivery"
+
+SET_FILTER_POLICY_ON_SUBSCRIPTION="aws --endpoint-url=http://localhost:4575 sns set-subscription-attributes --subscription-arn arn:aws:sns:us-east-1:000000000000:ronbo:31bab3ee-de00-4eaa-b7d0-247361688580 --attribute-name FilterPolicy --attribute-value {}"
+echo "${SET_FILTER_POLICY_ON_SUBSCRIPTION}"
+${SET_FILTER_POLICY_ON_SUBSCRIPTION} || error_exit "Unable to set Filter Policy"
