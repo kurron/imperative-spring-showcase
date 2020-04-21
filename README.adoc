@@ -146,3 +146,33 @@ To create a character for a campaign, Players need purchase 0 or more fixed cost
 ****
 To create a character for a campaign, Players need purchase 0 or more per-level cost Advantages from a catalog of Advantages.
 ****
+
+.*Disadvantages: Negated*
+****
+To create a character for a campaign, Players need to know which combination of Advantages and Disadvantages negate each other and are disallowed.
+****
+
+.*Disadvantages: Villain*
+****
+To create a character for a campaign, Players need to know which Disadvantages are not suitable for "hero" characters and are disallowed.
+****
+
+.*Disadvantages: Controllable*
+****
+To create a character for a campaign, Players need which Disadvantages are controllable and may be avoided during game play.
+****
+
+.*Disadvantages: Fixed Cost*
+****
+To create a character for a campaign, Players need to purchase 0 or more Disadvantages from a catalog of Disadvantages.
+****
+
+.*Quirk: Mental*
+****
+To create a character for a campaign, Players need to purchase 0 or more Mental Quirks from a catalog of Quirks.
+****
+
+.*Quirk: Physical*
+****
+To create a character for a campaign, Players need to purchase 0 or more Physical Quirks from a catalog of Quirks.
+****
