@@ -44,6 +44,16 @@ enum class LoggingFeedback: LoggingContext {
         override val code: Int get() = 202
         override val messageFormat: String get() = "GETing {}"
         override val logLevel: Level get() = Level.DEBUG
+    },
+    EVENT_RECEIVED_MESSAGE {
+        override val code: Int get() = 203
+        override val messageFormat: String get() = "Message received {}"
+        override val logLevel: Level get() = Level.DEBUG
+    },
+    WIRETAP_MESSAGE {
+        override val code: Int get() = 204
+        override val messageFormat: String get() = "Wire tap {}"
+        override val logLevel: Level get() = Level.DEBUG
     }
 }
 
