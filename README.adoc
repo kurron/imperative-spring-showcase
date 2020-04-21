@@ -91,3 +91,8 @@ To quickly evaluate a character strengths and weaknesses, Players need to see th
 * Exceptional - 13 or 14 points
 * Amazing - 15 or more points
 ****
+
+.*Basic Lift*
+****
+To create a character for a campaign, Players need to their character's Basic Lift(BL) value calculated using the formula of (STxST)/5. If the calculation is greater than 10, round to the nearest whole number.
+****
