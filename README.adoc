@@ -94,10 +94,30 @@ To quickly evaluate a character strengths and weaknesses, Players need to see th
 
 .*Basic Lift*
 ****
-To create a character for a campaign, Players need to their character's Basic Lift(BL) value calculated using the formula of (STxST)/5. If the calculation is greater than 10, round to the nearest whole number.
+To create a character for a campaign, Players need to their character's Basic Lift (BL) value calculated using the formula of (STxST)/5. If the calculation is greater than 10, round to the nearest whole number.
 ****
 
 .*Handedness*
 ****
 To create a character for a campaign, Players need to select their character's Handedness, either right or left.
+****
+
+.*Secondary Characteristic: Hit Points (HP)*
+****
+To create a character for a campaign, Players need their character's Hit Points (HP) calculated for them. HP is equivalent to the character's ST value.
+****
+
+.*Secondary Characteristic: Will*
+****
+To create a character for a campaign, Players need their character's Will calculated for them. Will is equivalent to the character's IQ value.
+****
+
+.*Secondary Characteristic: Perception (PER)*
+****
+To create a character for a campaign, Players need their character's Perception (PER) calculated for them. Perception is equivalent to the character's IQ value.
+****
+
+.*Secondary Characteristic: Fatigue Points (FP)*
+****
+To create a character for a campaign, Players need their character's Fatigue Points (FP) calculated for them. Perception is equivalent to the character's HT value.
 ****
