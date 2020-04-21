@@ -157,6 +157,30 @@ To create a character for a campaign, Players may select their character's Odiou
 To create a character for a campaign, Players may purchase their character's Voice attribute by spending 10 points.
 ****
 
+.*Social Background: Technology Level (TL)*
+****
+To play in a campaign, Players must have their character's TL attribute automatically calculated. The calculation is relative to the TL of the world created by the GM.
+****
+
+.*Social Background: Language Comprehension*
+****
+To create a character for a campaign, Players may purchase their character's known languages by spending appropriate Character Points.
+
+* None - 0 points
+* Broken - 1 point for spoken, 1 point for written
+* Accented - 2 point for spoken, 2 point for written
+* Native - 3 point for spoken, 3 point for written (1 language at this level is available at 0 cost)
+****
+
+.*Social Background: Literacy*
+****
+To create a character for a campaign, Players may decided to reduce their character's native Language Comprehension to increase Character Points.
+
+* None (Illiterate) - add 3 points
+* Broken (Semi-literate) - add 2 points
+* Accented (Literate) - add 1 point
+****
+
 .*Advantages: Fixed Cost*
 ****
 To create a character for a campaign, Players need purchase 0 or more fixed cost Advantages from a catalog of Advantages.
@@ -190,11 +214,11 @@ To create a character for a campaign, Players need to purchase 0 or more Disadva
 
 .*Quirk: Mental*
 ****
-To create a character for a campaign, Players need to purchase 0 or more Mental Quirks from a catalog of Quirks. A "purchased" Quirk will add back points to the Character Points pool.
+To create a character for a campaign, Players may select 0 or more Mental Quirks from a catalog of Quirks. Each selected Quirk will add back points to the Character Points pool.
 
 ****
 
 .*Quirk: Physical*
 ****
-To create a character for a campaign, Players need to purchase 0 or more Physical Quirks from a catalog of Quirks. A "purchased" Quirk will add back points to the Character Points pool.
+To create a character for a campaign, Players mayy select 0 or more Physical Quirks from a catalog of Quirks. Each selected Quirk will add back points to the Character Points pool.
 ****
