@@ -11,7 +11,7 @@ interface OutboundMessagingGateway {
 
 class SimpleNotificationServiceGateway(private val template: NotificationMessagingTemplate, private val configuration: ApplicationConfiguration): OutboundMessagingGateway {
     override fun sendCharacterPointsAllocatedEvent(event: CharacterPointsAllocatedEvent) {
-        template.convertAndSend(configuration.snsTopic, event )
+        template.convertAndSend(configuration.snsTopic, event, mutableMapOf<String,Any>( "type" to "event", "label" to "entity.character-points-allocated" ) )
     }
 }
 

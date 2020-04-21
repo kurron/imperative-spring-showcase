@@ -24,6 +24,5 @@ SET_RAW_DELIVERY_ON_SUBSCRIPTION="aws --endpoint-url=http://localhost:4575 sns s
 echo "${SET_RAW_DELIVERY_ON_SUBSCRIPTION}"
 ${SET_RAW_DELIVERY_ON_SUBSCRIPTION} || error_exit "Unable to set Raw Delivery"
 
-SET_FILTER_POLICY_ON_SUBSCRIPTION="aws --endpoint-url=http://localhost:4575 sns set-subscription-attributes --subscription-arn arn:aws:sns:us-east-1:000000000000:ronbo:31bab3ee-de00-4eaa-b7d0-247361688580 --attribute-name FilterPolicy --attribute-value {}"
-echo "${SET_FILTER_POLICY_ON_SUBSCRIPTION}"
-${SET_FILTER_POLICY_ON_SUBSCRIPTION} || error_exit "Unable to set Filter Policy"
+# escaping of JSON is too painful so I can't echo the command
+aws --endpoint-url=http://localhost:4575 sns set-subscription-attributes --subscription-arn arn:aws:sns:us-east-1:000000000000:ronbo:31bab3ee-de00-4eaa-b7d0-247361688580 --attribute-name FilterPolicy --attribute-value "{\"type\":[\"event\"],\"label\":[\"entity.character-points-allocated\"]}" || error_exit "Unable to set Filter Policy"
