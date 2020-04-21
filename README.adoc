@@ -109,15 +109,30 @@ To create a character for a campaign, Players need their character's Hit Points 
 
 .*Secondary Characteristic: Will*
 ****
-To create a character for a campaign, Players need their character's Will calculated for them. Will is equivalent to the character's IQ value.
+To create a character for a campaign, Players need their character's Will attribute calculated for them. Will is equivalent to the character's IQ value.
 ****
 
 .*Secondary Characteristic: Perception (PER)*
 ****
-To create a character for a campaign, Players need their character's Perception (PER) calculated for them. Perception is equivalent to the character's IQ value.
+To create a character for a campaign, Players need their character's Perception (PER) attribute calculated for them. Perception is equivalent to the character's IQ value.
 ****
 
 .*Secondary Characteristic: Fatigue Points (FP)*
 ****
-To create a character for a campaign, Players need their character's Fatigue Points (FP) calculated for them. Perception is equivalent to the character's HT value.
+To create a character for a campaign, Players need their character's Fatigue Points (FP) attribute calculated for them. Fatigue Points is equivalent to the character's HT value.
+****
+
+.*Secondary Characteristic: Basic Speed*
+****
+To create a character for a campaign, Players need their character's Basic Speed attribute calculated for them. Basic Speed is (HT + DX)/4. Calculate to 2 decimal places.
+****
+
+.*Secondary Characteristic: Dodge*
+****
+To create a character for a campaign, Players need their character's Dodge attribute calculated for them. Dodge is Basic Speed + 3, dropping all decimals.
+****
+
+.*Secondary Characteristic: Basic Move*
+****
+To create a character for a campaign, Players need their character's Basic Move attribute calculated for them. Basic Move is Basic Speed, dropping all decimals.
 ****
