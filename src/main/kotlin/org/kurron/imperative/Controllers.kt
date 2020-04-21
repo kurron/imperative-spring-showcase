@@ -15,7 +15,7 @@ data class Stuff( val zulu: String, val alpha: String, val hotel: String, val bl
 
 @RestController
 @RequestMapping("/echo")
-class Echo(private val template: RestOperations): AbstractLogAware() {
+class Echo(private val template: RestOperations, private val gateway: OutboundMessagingGateway): AbstractLogAware() {
 
     @GetMapping("/hello", produces = [MediaType.APPLICATION_JSON_VALUE])
     fun hello() = mapOf( "operation" to randomHexString(), "code" to randomHexString(), "should not be sent" to "" )
@@ -46,6 +46,12 @@ class Echo(private val template: RestOperations): AbstractLogAware() {
             template.getForEntity(url, String::class.java )
         }
         return ResponseEntity.ok( "Called ${responses.size} resources" )
+    }
+
+    @GetMapping("/message", produces = [MediaType.APPLICATION_JSON_VALUE])
+    fun sendMessage(): ResponseEntity<String>  {
+        gateway.sendCharacterPointsAllocatedEvent( CharacterPointsAllocatedEvent( "Hello" ) )
+        return ResponseEntity.ok( "All good" )
     }
 }
 

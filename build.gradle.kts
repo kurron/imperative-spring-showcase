@@ -31,6 +31,9 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.springframework.cloud:spring-cloud-starter-zipkin")
+	implementation("org.springframework.cloud:spring-cloud-aws-context")
+	implementation("org.springframework.cloud:spring-cloud-aws-autoconfigure")
+	implementation("org.springframework.cloud:spring-cloud-aws-messaging")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 	}

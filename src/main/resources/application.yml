@@ -1,4 +1,19 @@
 ---
+application:
+  sns-endpoint: http://localhost:4566
+  sns-topic: ronbo
+
+cloud:
+  aws:
+    credentials:
+      instance-profile: false
+    region:
+      auto: false
+      static: us-east-1
+    stack:
+      auto: false
+
+
 debug: false
 info:
   application:
@@ -26,12 +41,12 @@ spring:
   jackson:
     default-property-inclusion: non_empty
     mapper:
-      sort_properties_alphabetically: true
+      sort-properties-alphabetically: true
     serialization:
-      indent_output: true
-      write_null_map_values: false
-      write_empty_json_arrays: false
-      order_map_entries_by_keys: true
+      indent-output: true
+      write-null-map-values: false
+      write-empty-json-arrays: false
+      order-map-entries-by-keys: true
   sleuth:
     enabled: true
     sampler:

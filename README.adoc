@@ -43,6 +43,7 @@ Details about this project are contained in the link:guidebook/guidebook.adoc[gu
 * E-Mail via SES?
 * S3 upload, download and searching
 * docker run -d -p 9411:9411 openzipkin/zipkin
+* single process to simplify refactoring and deployment. may break out into separate applications later.
 
 == Stories
 .*Sample Card*
@@ -330,3 +331,7 @@ To enrich character generation, an Administrator must be able to add new Physica
 To enrich character generation, an Administrator must be able to add new Skills to the catalog. Players should be notified when the catalog is updated.
 ****
 
+.*Operating: Deployment Environments*
+****
+To control costs, an Operator must be able to deploy the system to either an on-premises data center or to the Amazon cloud.
+****
