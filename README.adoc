@@ -259,7 +259,7 @@ To create a character for a campaign, Players may select 0 or more Physical Quir
 
 .*Skills*
 ****
-To create a character for a campaign, Players may select 0 or more Skills from a catalog of Quirks. Each selected Skill will have a cost calculated from the following table:
+To create a character for a campaign, Players may select 0 or more Skills from a catalog of Skills. Each selected Skill will have a cost calculated from the following table:
 [grid="rows",format="csv"]
 [options="header"]
 |===
@@ -274,3 +274,59 @@ Attribute+3,8,12,16
 Extra +1,+4,+4,+4
 |===
 ****
+
+.*Administrating: Appearance*
+****
+To enrich character generation, an Administrator must be able to add new Appearances to the catalog. Players should be notified when the catalog is updated.
+****
+
+.*Administrating: Odious Personal Habits (OPH)*
+****
+To enrich character generation, an Administrator must be able to add new OPH to the catalog. Players should be notified when the catalog is updated.
+****
+
+.*Administrating: Fixed Cost Advantages*
+****
+To enrich character generation, an Administrator must be able to add new Fixed Cost Advantages to the catalog. Players should be notified when the catalog is updated.
+****
+
+.*Administrating: Per-Level Cost Advantages*
+****
+To enrich character generation, an Administrator must be able to add new Per-Level Cost Advantages to the catalog. Players should be notified when the catalog is updated.
+****
+
+.*Administrating: Controllable Disadvantages*
+****
+To enrich character generation, an Administrator must be able to add new Controllable Disadvantages to the catalog. Players should be notified when the catalog is updated.
+****
+
+.*Administrating: Fixed Cost Disadvantages*
+****
+To enrich character generation, an Administrator must be able to add new Fixed Cost Disadvantages to the catalog. Players should be notified when the catalog is updated.
+****
+
+.*Administrating: Villain Disadvantages*
+****
+To enrich character generation, an Administrator must be able to mark which Disadvantages are reserved for villains in the catalog. Players should be notified when the catalog is updated.
+****
+
+.*Administrating: Negated Disadvantages*
+****
+To enrich character generation, an Administrator must be able to mark which Advantage/Disadvantage combinations negate each other in the catalog. Players should be notified when the catalog is updated.
+****
+
+.*Administrating: Mental Quirks*
+****
+To enrich character generation, an Administrator must be able to add new Mental Quirks to the catalog. Players should be notified when the catalog is updated.
+****
+
+.*Administrating: Physical Quirks*
+****
+To enrich character generation, an Administrator must be able to add new Physical Quirks to the catalog. Players should be notified when the catalog is updated.
+****
+
+.*Administrating: Skills*
+****
+To enrich character generation, an Administrator must be able to add new Skills to the catalog. Players should be notified when the catalog is updated.
+****
+
