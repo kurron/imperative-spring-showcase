@@ -78,3 +78,16 @@ To create a character for a campaign, Players need to allocate Character Points 
 * Dropping either ST or HT by one level increases Character Points by 10
 * Dropping either DX or IQ by one level increases Character Points by 20
 ****
+
+.*Basic Attributes Categories*
+****
+To quickly evaluate a character strengths and weaknesses, Players need to see their Character Attributes tagged with the following labels:
+
+* Crippling - 1 to 6 points
+* Poor - 7 points
+* Below Average - 8 or 9 points
+* Average - 10 points
+* Above Average - 11 or 12 points
+* Exceptional - 13 or 14 points
+* Amazing - 15 or more points
+****
