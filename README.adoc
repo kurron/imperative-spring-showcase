@@ -136,3 +136,13 @@ To create a character for a campaign, Players need their character's Dodge attri
 ****
 To create a character for a campaign, Players need their character's Basic Move attribute calculated for them. Basic Move is Basic Speed, dropping all decimals.
 ****
+
+.*Advantages: Fixed Cost*
+****
+To create a character for a campaign, Players need purchase 0 or more fixed cost Advantages from a catalog of Advantages.
+****
+
+.*Advantages: Per-Level Cost*
+****
+To create a character for a campaign, Players need purchase 0 or more per-level cost Advantages from a catalog of Advantages.
+****
