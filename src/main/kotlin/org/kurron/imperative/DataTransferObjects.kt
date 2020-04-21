@@ -8,6 +8,6 @@ import org.springframework.context.annotation.Profile
 @Profile("cloud", "development")
 @ConstructorBinding
 @ConfigurationProperties(  prefix = "application")
-data class ApplicationConfiguration(var snsEndpoint: String, var snsTopic: String)
+data class ApplicationConfiguration(var snsEndpoint: String, var snsTopic: String, var sqsEndpoint: String)
 
 data class CharacterPointsAllocatedEvent(@JsonProperty("message") val message: String)
