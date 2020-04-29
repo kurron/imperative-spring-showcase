@@ -50,6 +50,7 @@ class Echo(private val template: RestOperations, private val gateway: OutboundMe
 
     @GetMapping("/message", produces = [MediaType.APPLICATION_JSON_VALUE])
     fun sendMessage(): ResponseEntity<String>  {
+        feedback.send(LoggingFeedback.PUBLISH_EVENT_MESSAGE, "Hello" )
         gateway.sendCharacterPointsAllocatedEvent( CharacterPointsAllocatedEvent( "Hello" ) )
         return ResponseEntity.ok( "All good" )
     }
