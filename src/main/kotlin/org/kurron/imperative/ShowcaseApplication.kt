@@ -3,10 +3,8 @@ package org.kurron.imperative
 import com.amazonaws.client.builder.AwsClientBuilder
 import com.amazonaws.services.sns.AmazonSNS
 import com.amazonaws.services.sns.AmazonSNSClientBuilder
-import com.amazonaws.services.sqs.AmazonSQS
 import com.amazonaws.services.sqs.AmazonSQSAsync
 import com.amazonaws.services.sqs.AmazonSQSAsyncClientBuilder
-import com.amazonaws.services.sqs.AmazonSQSClientBuilder
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.actuate.health.Health
 import org.springframework.boot.actuate.health.HealthIndicator
@@ -19,7 +17,6 @@ import org.springframework.cloud.aws.messaging.core.NotificationMessagingTemplat
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Profile
 import org.springframework.messaging.converter.MappingJackson2MessageConverter
-import org.springframework.messaging.handler.annotation.support.PayloadArgumentResolver
 import org.springframework.messaging.handler.annotation.support.PayloadMethodArgumentResolver
 import org.springframework.stereotype.Component
 import java.util.concurrent.ThreadLocalRandom
