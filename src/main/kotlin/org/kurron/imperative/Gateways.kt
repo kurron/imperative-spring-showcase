@@ -4,6 +4,7 @@ import org.kurron.imperative.LoggingFeedback.EVENT_RECEIVED_MESSAGE
 import org.kurron.imperative.LoggingFeedback.WIRETAP_MESSAGE
 import org.springframework.cloud.aws.messaging.core.NotificationMessagingTemplate
 import org.springframework.cloud.aws.messaging.listener.annotation.SqsListener
+import org.springframework.context.annotation.Profile
 import org.springframework.messaging.handler.annotation.Headers
 import org.springframework.stereotype.Component
 
@@ -22,6 +23,7 @@ class NullNotificationServiceGateway: OutboundMessagingGateway {
 }
 
 @Component
+@Profile("cloud", "development")
 class SqsInboundMessageGateway: AbstractLogAware() {
     @SqsListener("alpha")
     fun alphaListener( event: CharacterPointsAllocatedEvent, @Headers headers: Map<String,String> ) {

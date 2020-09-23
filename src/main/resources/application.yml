@@ -4,15 +4,7 @@ application:
   sns-topic: ronbo
   sqs-endpoint: http://localhost:4566
 
-cloud:
-  aws:
-    credentials:
-      instance-profile: false
-    region:
-      auto: false
-      static: us-east-1
-    stack:
-      auto: false
+
 
 
 debug: false
