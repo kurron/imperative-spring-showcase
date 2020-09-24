@@ -4,7 +4,6 @@ import org.kurron.imperative.LoggingFeedback.EVENT_RECEIVED_MESSAGE
 import org.kurron.imperative.LoggingFeedback.WIRETAP_MESSAGE
 import org.springframework.cloud.aws.messaging.core.NotificationMessagingTemplate
 import org.springframework.cloud.aws.messaging.listener.annotation.SqsListener
-import org.springframework.context.annotation.Profile
 import org.springframework.messaging.handler.annotation.Headers
 import org.springframework.stereotype.Component
 
@@ -22,8 +21,8 @@ class NullNotificationServiceGateway: OutboundMessagingGateway {
     override fun sendCharacterPointsAllocatedEvent(event: CharacterPointsAllocatedEvent) {}
 }
 
-@Component
-@Profile("cloud", "development")
+//TODO: enabling this causes a startup failure because the SQS call doesn't get the API keys. Other calls work, though. Weird.
+//@Component
 class SqsInboundMessageGateway: AbstractLogAware() {
     @SqsListener("alpha")
     fun alphaListener( event: CharacterPointsAllocatedEvent, @Headers headers: Map<String,String> ) {

@@ -1,5 +1,8 @@
 package org.kurron.imperative
 
+import com.amazonaws.auth.AWSCredentialsProvider
+import com.amazonaws.auth.AWSStaticCredentialsProvider
+import com.amazonaws.auth.BasicAWSCredentials
 import com.amazonaws.client.builder.AwsClientBuilder
 import com.amazonaws.services.sns.AmazonSNS
 import com.amazonaws.services.sns.AmazonSNSClientBuilder
@@ -37,7 +40,6 @@ class ShowcaseApplication {
 */
 
 	@Bean
-	@Profile("cloud", "development")
 	fun queueMessageHandlerFactory(): QueueMessageHandlerFactory {
 		val factory = QueueMessageHandlerFactory()
 		val converter = MappingJackson2MessageConverter()
@@ -47,27 +49,24 @@ class ShowcaseApplication {
 	}
 
 	@Bean
-	@Profile("cloud", "development")
 	fun amazonSQS(configuration: ApplicationConfiguration, @Value("\${cloud.aws.region.static}") region:String ): AmazonSQSAsync {
 		return AmazonSQSAsyncClientBuilder.standard().withEndpointConfiguration( AwsClientBuilder.EndpointConfiguration( configuration.sqsEndpoint, region ) ).build()
 	}
 
 	@Bean
-	@Profile("cloud", "development")
 	fun amazonSNS(configuration: ApplicationConfiguration, @Value("\${cloud.aws.region.static}") region:String ): AmazonSNS {
 		return AmazonSNSClientBuilder.standard().withEndpointConfiguration( AwsClientBuilder.EndpointConfiguration( configuration.snsEndpoint, region ) ).build()
 	}
 
 	@Bean
-	@Profile("cloud", "development")
 	fun notificationMessagingTemplate(sns: AmazonSNS) = NotificationMessagingTemplate(sns)
 
 	@Bean
-	@Profile("cloud", "development")
+	@Profile("!stubbed")
 	fun outboundMessagingGateway(template: NotificationMessagingTemplate, configuration: ApplicationConfiguration) = SimpleNotificationServiceGateway(template, configuration)
 
 	@Bean
-	@Profile("default")
+	@Profile("stubbed")
 	fun nullOutboundMessagingGateway() = NullNotificationServiceGateway()
 }
 
