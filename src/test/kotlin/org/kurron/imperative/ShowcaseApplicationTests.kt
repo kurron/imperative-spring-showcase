@@ -1,6 +1,12 @@
 package org.kurron.imperative
 
+import org.junit.After
+import org.junit.Before
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
@@ -38,6 +44,16 @@ class ShowcaseApplicationTests {
             registry.add("application.sqs-endpoint" ) { localstack.getEndpointConfiguration(LocalStackContainer.Service.SQS).serviceEndpoint }
         }
 
+    }
+
+    @BeforeEach
+    fun setup() {
+        println( "setup" )
+    }
+
+    @AfterEach
+    fun teardown() {
+        println( "teardown" )
     }
 
     @Test
