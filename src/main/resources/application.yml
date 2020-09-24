@@ -4,9 +4,6 @@ application:
   sns-topic: ronbo
   sqs-endpoint: http://localhost:4566
 
-
-
-
 debug: false
 info:
   application:
