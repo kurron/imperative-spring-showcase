@@ -49,13 +49,19 @@ class ShowcaseApplication {
 	}
 
 	@Bean
-	fun amazonSQS(configuration: ApplicationConfiguration, @Value("\${cloud.aws.region.static}") region:String ): AmazonSQSAsync {
-		return AmazonSQSAsyncClientBuilder.standard().withEndpointConfiguration( AwsClientBuilder.EndpointConfiguration( configuration.sqsEndpoint, region ) ).build()
+	fun amazonSQS(configuration: ApplicationConfiguration, @Value("\${cloud.aws.region.static}") region:String, provider: AWSCredentialsProvider ): AmazonSQSAsync {
+		return AmazonSQSAsyncClientBuilder.standard()
+				                          .withEndpointConfiguration( AwsClientBuilder.EndpointConfiguration( configuration.sqsEndpoint, region ) )
+				                          .withCredentials( provider )
+				                          .build()
 	}
 
 	@Bean
-	fun amazonSNS(configuration: ApplicationConfiguration, @Value("\${cloud.aws.region.static}") region:String ): AmazonSNS {
-		return AmazonSNSClientBuilder.standard().withEndpointConfiguration( AwsClientBuilder.EndpointConfiguration( configuration.snsEndpoint, region ) ).build()
+	fun amazonSNS(configuration: ApplicationConfiguration, @Value("\${cloud.aws.region.static}") region:String, provider: AWSCredentialsProvider ): AmazonSNS {
+		return AmazonSNSClientBuilder.standard()
+				                     .withEndpointConfiguration( AwsClientBuilder.EndpointConfiguration( configuration.snsEndpoint, region ) )
+				                     .withCredentials( provider )
+				                     .build()
 	}
 
 	@Bean

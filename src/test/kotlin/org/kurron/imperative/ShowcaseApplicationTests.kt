@@ -1,5 +1,7 @@
 package org.kurron.imperative
 
+import com.amazonaws.services.sqs.AmazonSQS
+import com.amazonaws.services.sqs.AmazonSQSAsync
 import org.junit.After
 import org.junit.Before
 import org.junit.jupiter.api.AfterAll
@@ -8,6 +10,7 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.DynamicPropertyRegistry
@@ -46,9 +49,15 @@ class ShowcaseApplicationTests {
 
     }
 
+    @Autowired
+    lateinit var sqs: AmazonSQSAsync
+
     @BeforeEach
     fun setup() {
         println( "setup" )
+        val alpha = sqs.createQueue("alpha")
+        val bravo = sqs.createQueue("bravo")
+        val i = 10
     }
 
     @AfterEach

@@ -22,7 +22,7 @@ class NullNotificationServiceGateway: OutboundMessagingGateway {
 }
 
 //TODO: enabling this causes a startup failure because the SQS call doesn't get the API keys. Other calls work, though. Weird.
-//@Component
+@Component
 class SqsInboundMessageGateway: AbstractLogAware() {
     @SqsListener("alpha")
     fun alphaListener( event: CharacterPointsAllocatedEvent, @Headers headers: Map<String,String> ) {
