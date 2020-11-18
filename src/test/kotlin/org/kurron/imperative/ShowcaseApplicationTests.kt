@@ -29,7 +29,7 @@ class ShowcaseApplicationTests {
     companion object Initializer  {
         @Container
         @JvmStatic
-        val localstack = LocalStackContainer().withServices(LocalStackContainer.Service.S3, LocalStackContainer.Service.SNS)
+        val localstack = LocalStackContainer().withServices(LocalStackContainer.Service.SQS, LocalStackContainer.Service.SNS)
                                               .withStartupTimeout(Duration.ofSeconds(90))
 
         @DynamicPropertySource
@@ -69,6 +69,6 @@ class ShowcaseApplicationTests {
     fun contextLoads() {
         val foo = localstack.getEndpointConfiguration(LocalStackContainer.Service.SNS).serviceEndpoint
         val bar = localstack.getEndpointConfiguration(LocalStackContainer.Service.SQS).serviceEndpoint
-        Assertions.assertTrue(foo == bar ) { "Numbers " + 2 + " and " + 3 + " are not equal!" }
+        Assertions.assertTrue(foo != bar ) { "$foo and $bar are not equal!" }
     }
 }
