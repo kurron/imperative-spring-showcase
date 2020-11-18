@@ -1,13 +1,8 @@
 package org.kurron.imperative
 
-import com.amazonaws.services.sqs.AmazonSQS
 import com.amazonaws.services.sqs.AmazonSQSAsync
-import org.junit.After
-import org.junit.Before
-import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -30,7 +25,7 @@ class ShowcaseApplicationTests {
         @Container
         @JvmStatic
         val localstack = LocalStackContainer().withServices(LocalStackContainer.Service.SQS, LocalStackContainer.Service.SNS)
-                                              .withStartupTimeout(Duration.ofSeconds(90))
+                                              .withStartupTimeout(Duration.ofSeconds(60))
 
         @DynamicPropertySource
         @JvmStatic
