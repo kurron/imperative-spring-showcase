@@ -1,6 +1,8 @@
 package org.kurron.imperative
 
 import com.amazonaws.services.sqs.AmazonSQSAsync
+import com.amazonaws.services.sqs.model.CreateQueueRequest
+import com.amazonaws.services.sqs.model.CreateQueueResult
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
@@ -47,16 +49,24 @@ class ShowcaseApplicationTests {
     @Autowired
     lateinit var sqs: AmazonSQSAsync
 
+    // shared references
+    var alpha: CreateQueueResult? = null
+    var bravo: CreateQueueResult? = null
+
     @BeforeEach
     fun setup() {
         println( "setup" )
-        Assertions.assertTrue( 200 == sqs.createQueue("alpha").sdkHttpMetadata.httpStatusCode )
-        Assertions.assertTrue( 200 == sqs.createQueue("bravo").sdkHttpMetadata.httpStatusCode )
+        alpha = sqs.createQueue("alpha")
+        Assertions.assertTrue( 200 == alpha!!.sdkHttpMetadata.httpStatusCode )
+        bravo = sqs.createQueue("bravo")
+        Assertions.assertTrue( 200 == bravo!!.sdkHttpMetadata.httpStatusCode )
     }
 
     @AfterEach
     fun teardown() {
         println( "teardown" )
+        Assertions.assertTrue( 200 == sqs.deleteQueue(alpha!!.queueUrl).sdkHttpMetadata.httpStatusCode )
+        Assertions.assertTrue( 200 == sqs.deleteQueue(bravo!!.queueUrl).sdkHttpMetadata.httpStatusCode )
     }
 
     @Test
