@@ -50,9 +50,8 @@ class ShowcaseApplicationTests {
     @BeforeEach
     fun setup() {
         println( "setup" )
-        val alpha = sqs.createQueue("alpha")
-        val bravo = sqs.createQueue("bravo")
-        val i = 10
+        Assertions.assertTrue( 200 == sqs.createQueue("alpha").sdkHttpMetadata.httpStatusCode )
+        Assertions.assertTrue( 200 == sqs.createQueue("bravo").sdkHttpMetadata.httpStatusCode )
     }
 
     @AfterEach
