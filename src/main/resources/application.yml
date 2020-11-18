@@ -3,7 +3,10 @@ application:
   sns-endpoint: http://localhost:4566
   sns-topic: ronbo
   sqs-endpoint: http://localhost:4566
-
+cloud:
+  aws:
+    region:
+      auto: false
 debug: false
 info:
   application:
@@ -15,6 +18,12 @@ logging:
     org:
       kurron:
         imperative: TRACE
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: ERROR
+        internal:
+            InstanceMetadataServiceResourceFetcher: ERROR
   pattern:
     # had to put a leading . because the YAML parser doesn't like starting a line with percentage symbol
     level: .%16mdc{traceId:-0} %3mdc{message-code:-0} %5p
