@@ -16,6 +16,7 @@ import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
+import org.testcontainers.containers.MongoDBContainer
 import org.testcontainers.containers.localstack.LocalStackContainer
 import org.testcontainers.containers.localstack.LocalStackContainer.Service.SNS
 import org.testcontainers.containers.localstack.LocalStackContainer.Service.SQS
@@ -35,6 +36,11 @@ class ShowcaseApplicationTests {
     companion object Initializer  {
         val timeout = Duration.ofSeconds(60)
         val localstackImage = DockerImageName.parse("localstack/localstack:0.11.2")
+        val mongodbImage = DockerImageName.parse("mongo:4.4.1")
+
+        @Container
+        @JvmStatic
+        val mongodb = MongoDBContainer(mongodbImage).withStartupTimeout(timeout)
 
         @Container
         @JvmStatic
@@ -53,6 +59,9 @@ class ShowcaseApplicationTests {
             registry.add("cloud.aws.credentials.secret-key") { localstack.secretKey }
             registry.add("application.sns-endpoint" ) { localstack.getEndpointConfiguration(SNS).serviceEndpoint }
             registry.add("application.sqs-endpoint" ) { localstack.getEndpointConfiguration(SQS).serviceEndpoint }
+
+            // mongodb://localhost:33350/test
+            registry.add("spring.data.mongodb.port" ) { mongodb.getMappedPort( 27017 ) }
         }
 
     }

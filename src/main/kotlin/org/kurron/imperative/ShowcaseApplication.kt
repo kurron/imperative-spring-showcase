@@ -32,12 +32,6 @@ class ShowcaseApplication {
 	@Bean
 	fun restTemplate() = RestTemplateBuilder().build()!!
 
-/*
-	// You would not sample EVERY data point in a production setting. There are more sophisticated samplers to select from.
-	@Bean
-	fun sampler() = brave.sampler.Sampler.ALWAYS_SAMPLE!!
-*/
-
 	@Bean
 	fun queueMessageHandlerFactory(): QueueMessageHandlerFactory {
 		val factory = QueueMessageHandlerFactory()
