@@ -114,9 +114,7 @@ class ShowcaseApplicationTests {
     }
 
     @Document
-    data class Person @JvmOverloads constructor (@Id var id: String = UUID.randomUUID().toString(),
-                                                 var name: String = "defaulted",
-                                                 var age: Int = 0 )
+    data class Person @JvmOverloads constructor (@Id var id: String = UUID.randomUUID().toString(), var name: String = "defaulted", var age: Int = 0 )
 
     @Test
     fun mongodbWorks() {
