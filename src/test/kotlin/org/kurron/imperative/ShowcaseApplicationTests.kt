@@ -11,15 +11,19 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.cloud.aws.messaging.core.QueueMessagingTemplate
+import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.testcontainers.containers.localstack.LocalStackContainer
+import org.testcontainers.containers.localstack.LocalStackContainer.Service.SNS
+import org.testcontainers.containers.localstack.LocalStackContainer.Service.SQS
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
+import org.testcontainers.utility.DockerImageName
 import java.time.Duration
 import java.time.Instant
-import java.util.Date
 import java.util.concurrent.ThreadLocalRandom
 
 
@@ -29,10 +33,12 @@ import java.util.concurrent.ThreadLocalRandom
 class ShowcaseApplicationTests {
 
     companion object Initializer  {
+        val timeout = Duration.ofSeconds(60)
+        val localstackImage = DockerImageName.parse("localstack/localstack:0.11.2")
+
         @Container
         @JvmStatic
-        val localstack = LocalStackContainer().withServices(LocalStackContainer.Service.SQS, LocalStackContainer.Service.SNS)
-                                              .withStartupTimeout(Duration.ofSeconds(60))
+        val localstack = LocalStackContainer(localstackImage).withServices(SQS, SNS).withStartupTimeout(timeout)
 
         @DynamicPropertySource
         @JvmStatic
@@ -45,8 +51,8 @@ class ShowcaseApplicationTests {
             registry.add("cloud.aws.region.static") { localstack.region }
             registry.add("cloud.aws.credentials.access-key") { localstack.accessKey }
             registry.add("cloud.aws.credentials.secret-key") { localstack.secretKey }
-            registry.add("application.sns-endpoint" ) { localstack.getEndpointConfiguration(LocalStackContainer.Service.SNS).serviceEndpoint }
-            registry.add("application.sqs-endpoint" ) { localstack.getEndpointConfiguration(LocalStackContainer.Service.SQS).serviceEndpoint }
+            registry.add("application.sns-endpoint" ) { localstack.getEndpointConfiguration(SNS).serviceEndpoint }
+            registry.add("application.sqs-endpoint" ) { localstack.getEndpointConfiguration(SQS).serviceEndpoint }
         }
 
     }
@@ -90,4 +96,10 @@ class ShowcaseApplicationTests {
         val received = sqs.receiveAndConvert( "alpha", SimpleDTO::class.java )
         Assertions.assertEquals(sent, received) { "Messages do not match!" }
     }
+
+    @Document
+    data class Person @JvmOverloads constructor (@Id var id: String = "defaulted",
+                                                 var name: String = "defaulted",
+                                                 var age: Int = 0 )
+
 }

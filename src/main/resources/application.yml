@@ -46,9 +46,7 @@ spring:
       write-null-map-values: false
       write-empty-json-arrays: false
       order-map-entries-by-keys: true
-  sleuth:
-    enabled: true
-    sampler:
-      probability: 100
-  zipkin:
-    base-url: http://localhost:9411/
+      fail-on-empty-beans: false
+      write-dates-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
