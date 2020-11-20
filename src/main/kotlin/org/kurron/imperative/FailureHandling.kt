@@ -125,8 +125,8 @@ class GlobalApiExceptionHandler: ResponseEntityExceptionHandler() {
     }
 
     private fun wrapDetails(message:String, status: HttpStatus, logReference: String, help: Link): ResponseEntity<Problem> {
-        val logs = Link( "logs", "https://logs.example.com/trace-id/$logReference" )
-        val trace = Link( "trace", "https://tracing.example.com/trace-id/$logReference" )
+        val logs = Link.of( "logs", "https://logs.example.com/trace-id/$logReference" )
+        val trace = Link.of( "trace", "https://tracing.example.com/trace-id/$logReference" )
         // TODO: figure out how to send RFC-7807 information
         val details = Problem.create()
                              .withType(URI("https://example.com/probs/out-of-credit"))
@@ -134,7 +134,11 @@ class GlobalApiExceptionHandler: ResponseEntityExceptionHandler() {
                              .withDetail( "Your current balance is 30, but that costs 50." )
                              .withInstance( URI("/account/12345/msgs/abc") )
                              .withStatus(status)
-                             .withProperties( mapOf( "balance" to 30, "accounts" to listOf("/account/12345","/account/67890" ) ) )
+                             .withProperties( mapOf( "balance" to 30,
+                                                     "accounts" to listOf("/account/12345","/account/67890" ),
+                                                     "logs" to logs,
+                                                     "trace" to trace,
+                                                     "help" to help ) )
         val mediaType = MediaType.parseMediaType("application/vnd.error+json")
         return ResponseEntity.status(status).contentType(mediaType).body( details )
     }
