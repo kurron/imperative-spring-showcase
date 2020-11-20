@@ -15,6 +15,7 @@ import org.springframework.boot.runApplication
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.cloud.aws.messaging.config.QueueMessageHandlerFactory
 import org.springframework.cloud.aws.messaging.core.NotificationMessagingTemplate
+import org.springframework.cloud.aws.messaging.core.QueueMessagingTemplate
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Profile
 import org.springframework.messaging.converter.MappingJackson2MessageConverter
@@ -53,6 +54,9 @@ class ShowcaseApplication {
 				                          .withCredentials( provider )
 				                          .build()
 	}
+
+	@Bean
+	fun messagingTemplate( sqs: AmazonSQSAsync ): QueueMessagingTemplate = QueueMessagingTemplate(sqs)
 
 	@Bean
 	fun amazonSNS(configuration: ApplicationConfiguration, @Value("\${cloud.aws.region.static}") region:String, provider: AWSCredentialsProvider ): AmazonSNS {
