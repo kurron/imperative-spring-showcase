@@ -73,6 +73,6 @@ class ShowcaseApplicationTests {
     fun contextLoads() {
         val foo = localstack.getEndpointConfiguration(LocalStackContainer.Service.SNS).serviceEndpoint
         val bar = localstack.getEndpointConfiguration(LocalStackContainer.Service.SQS).serviceEndpoint
-        Assertions.assertTrue(foo != bar ) { "$foo and $bar are not equal!" }
+        Assertions.assertTrue(foo == bar ) { "$foo and $bar are not equal!" }
     }
 }
