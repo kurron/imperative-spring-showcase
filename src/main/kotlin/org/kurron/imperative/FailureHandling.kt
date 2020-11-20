@@ -2,13 +2,14 @@ package org.kurron.imperative
 
 import org.slf4j.helpers.MessageFormatter
 import org.springframework.hateoas.Link
-import org.springframework.hateoas.mediatype.vnderrors.VndErrors
+import org.springframework.hateoas.mediatype.problem.Problem
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
+import java.net.URI
 
 /**
  * The collection of all API feedback, used to assemble REST responses.
@@ -109,12 +110,12 @@ open class ApiException(val context: RestContext, vararg messageArgument: Any): 
 class GlobalApiExceptionHandler: ResponseEntityExceptionHandler() {
 
     @ExceptionHandler( Exception::class )
-    fun fallbackHandler(failure: Exception): ResponseEntity<VndErrors> {
+    fun fallbackHandler(failure: Exception): ResponseEntity<Problem> {
         return wrapDetails(failure.message!!, HttpStatus.INTERNAL_SERVER_ERROR, randomHexString(), assembleHelpLink( 0 ))
     }
 
     @ExceptionHandler( ApiException::class )
-    fun applicationFailureHandler(failure: ApiException): ResponseEntity<VndErrors> {
+    fun applicationFailureHandler(failure: ApiException): ResponseEntity<Problem> {
         return wrapDetails(failure.message!!, failure.context.status, randomHexString(), assembleHelpLink( failure.context.code ))
     }
 
@@ -123,10 +124,17 @@ class GlobalApiExceptionHandler: ResponseEntityExceptionHandler() {
         return Link("help", "https://help.example.com/failure-codes/$code")
     }
 
-    private fun wrapDetails(message:String, status: HttpStatus, logReference: String, help: Link): ResponseEntity<VndErrors> {
+    private fun wrapDetails(message:String, status: HttpStatus, logReference: String, help: Link): ResponseEntity<Problem> {
         val logs = Link( "logs", "https://logs.example.com/trace-id/$logReference" )
         val trace = Link( "trace", "https://tracing.example.com/trace-id/$logReference" )
-        val details = VndErrors(logReference, message, help, logs, trace)
+        // TODO: figure out how to send RFC-7807 information
+        val details = Problem.create()
+                             .withType(URI("https://example.com/probs/out-of-credit"))
+                             .withTitle("You do not have enough credit.")
+                             .withDetail( "Your current balance is 30, but that costs 50." )
+                             .withInstance( URI("/account/12345/msgs/abc") )
+                             .withStatus(status)
+                             .withProperties( mapOf( "balance" to 30, "accounts" to listOf("/account/12345","/account/67890" ) ) )
         val mediaType = MediaType.parseMediaType("application/vnd.error+json")
         return ResponseEntity.status(status).contentType(mediaType).body( details )
     }
