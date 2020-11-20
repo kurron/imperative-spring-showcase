@@ -121,7 +121,7 @@ class GlobalApiExceptionHandler: ResponseEntityExceptionHandler() {
 
     private fun assembleHelpLink( code: Int ): Link {
         // Links to a document describing the error. This has the same definition as the help link relation in the HTML5 specification
-        return Link("help", "https://help.example.com/failure-codes/$code")
+        return Link.of("help", "https://help.example.com/failure-codes/$code")
     }
 
     private fun wrapDetails(message:String, status: HttpStatus, logReference: String, help: Link): ResponseEntity<Problem> {

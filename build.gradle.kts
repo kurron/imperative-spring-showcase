@@ -40,7 +40,7 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.springframework.cloud:spring-cloud-starter-aws")
 	implementation("org.springframework.cloud:spring-cloud-starter-aws-messaging")
-	implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j")
+//	implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j")
 //	implementation("org.springframework.cloud:spring-cloud-starter-vault-config")
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
@@ -53,9 +54,11 @@ class ShowcaseApplicationTests {
     var alpha: CreateQueueResult? = null
     var bravo: CreateQueueResult? = null
 
+    val logger = LoggerFactory.getLogger( ShowcaseApplicationTests::class.java )
+
     @BeforeEach
     fun setup() {
-        println( "setup" )
+        logger.debug( "setup" )
         alpha = sqs.createQueue("alpha")
         Assertions.assertTrue( 200 == alpha!!.sdkHttpMetadata.httpStatusCode )
         bravo = sqs.createQueue("bravo")
@@ -64,7 +67,7 @@ class ShowcaseApplicationTests {
 
     @AfterEach
     fun teardown() {
-        println( "teardown" )
+        logger.debug( "teardown" )
         Assertions.assertTrue( 200 == sqs.deleteQueue(alpha!!.queueUrl).sdkHttpMetadata.httpStatusCode )
         Assertions.assertTrue( 200 == sqs.deleteQueue(bravo!!.queueUrl).sdkHttpMetadata.httpStatusCode )
     }
