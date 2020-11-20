@@ -5,6 +5,8 @@ import com.amazonaws.services.sqs.model.CreateQueueResult
 import com.fasterxml.jackson.annotation.JsonProperty
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.slf4j.LoggerFactory
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.cloud.aws.messaging.core.QueueMessagingTemplate
 import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.MongoOperations
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.DynamicPropertyRegistry
@@ -25,6 +28,7 @@ import org.testcontainers.junit.jupiter.Testcontainers
 import org.testcontainers.utility.DockerImageName
 import java.time.Duration
 import java.time.Instant
+import java.util.UUID
 import java.util.concurrent.ThreadLocalRandom
 
 
@@ -33,6 +37,8 @@ import java.util.concurrent.ThreadLocalRandom
 @ActiveProfiles("containerized")
 class ShowcaseApplicationTests {
 
+    // set the properies required to connect to the test containers
+    @Suppress("unused")
     companion object Initializer  {
         val timeout = Duration.ofSeconds(60)
         val localstackImage = DockerImageName.parse("localstack/localstack:0.11.2")
@@ -49,7 +55,6 @@ class ShowcaseApplicationTests {
         @DynamicPropertySource
         @JvmStatic
         fun registerDynamicProperties(registry: DynamicPropertyRegistry) {
-            println("registerDynamicProperties")
             registry.add("cloud.aws.region.auto") { false }
             registry.add("cloud.aws.stack.auto") { false }
             registry.add("cloud.aws.credentials.instance-profile") { false }
@@ -59,9 +64,7 @@ class ShowcaseApplicationTests {
             registry.add("cloud.aws.credentials.secret-key") { localstack.secretKey }
             registry.add("application.sns-endpoint" ) { localstack.getEndpointConfiguration(SNS).serviceEndpoint }
             registry.add("application.sqs-endpoint" ) { localstack.getEndpointConfiguration(SQS).serviceEndpoint }
-
-            // mongodb://localhost:33350/test
-            registry.add("spring.data.mongodb.port" ) { mongodb.getMappedPort( 27017 ) }
+            registry.add("spring.data.mongodb.uri" ) { mongodb.replicaSetUrl }
         }
 
     }
@@ -71,6 +74,9 @@ class ShowcaseApplicationTests {
 
     @Autowired
     lateinit var sqs: QueueMessagingTemplate
+
+    @Autowired
+    lateinit var mongodb: MongoOperations
 
     // shared references
     var alpha: CreateQueueResult? = null
@@ -95,6 +101,7 @@ class ShowcaseApplicationTests {
     }
 
     fun randomHexValue(): String = Integer.toHexString( ThreadLocalRandom.current().nextInt( Integer.MAX_VALUE ) ).toUpperCase()
+    fun randomInteger(): Int = ThreadLocalRandom.current().nextInt( Integer.MAX_VALUE )
 
     data class SimpleDTO(@JsonProperty("code") var code: String, @JsonProperty("timestamp") var timestamp: Instant)
 
@@ -103,12 +110,20 @@ class ShowcaseApplicationTests {
         val sent = SimpleDTO( randomHexValue(), Instant.now() )
         sqs.convertAndSend( "alpha", sent)
         val received = sqs.receiveAndConvert( "alpha", SimpleDTO::class.java )
-        Assertions.assertEquals(sent, received) { "Messages do not match!" }
+        assertEquals(sent, received) { "Messages do not match!" }
     }
 
     @Document
-    data class Person @JvmOverloads constructor (@Id var id: String = "defaulted",
+    data class Person @JvmOverloads constructor (@Id var id: String = UUID.randomUUID().toString(),
                                                  var name: String = "defaulted",
                                                  var age: Int = 0 )
+
+    @Test
+    fun mongodbWorks() {
+        val toSave = Person( name = randomHexValue(), age = randomInteger() )
+        val written = mongodb.insert( toSave )
+        val read = mongodb.findById(written.id, Person::class.java )
+        assertEquals(written, read) { "Documents do not match!" }
+    }
 
 }
