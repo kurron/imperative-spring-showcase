@@ -6,6 +6,7 @@ import com.amazonaws.services.sns.AmazonSNS
 import com.amazonaws.services.sns.AmazonSNSClientBuilder
 import com.amazonaws.services.sqs.AmazonSQSAsync
 import com.amazonaws.services.sqs.AmazonSQSAsyncClientBuilder
+import org.elasticsearch.client.RestHighLevelClient
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.actuate.health.Health
 import org.springframework.boot.actuate.health.HealthIndicator
@@ -18,6 +19,10 @@ import org.springframework.cloud.aws.messaging.core.NotificationMessagingTemplat
 import org.springframework.cloud.aws.messaging.core.QueueMessagingTemplate
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Profile
+import org.springframework.data.elasticsearch.client.ClientConfiguration
+import org.springframework.data.elasticsearch.client.RestClients
+import org.springframework.data.elasticsearch.core.ElasticsearchOperations
+import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate
 import org.springframework.messaging.converter.MappingJackson2MessageConverter
 import org.springframework.messaging.handler.annotation.support.PayloadMethodArgumentResolver
 import org.springframework.stereotype.Component
@@ -58,6 +63,17 @@ class ShowcaseApplication {
 				                     .withEndpointConfiguration( AwsClientBuilder.EndpointConfiguration( configuration.snsEndpoint, region ) )
 				                     .withCredentials( provider )
 				                     .build()
+	}
+
+	@Bean
+	fun elasticsearchClient( configuration: ApplicationConfiguration ): RestHighLevelClient {
+		val restConfiguration = ClientConfiguration.builder().connectedTo( configuration.elasticsearchEndpoint ).build()
+		return RestClients.create(restConfiguration).rest()
+	}
+
+	@Bean
+	fun elasticsearch( client: RestHighLevelClient ): ElasticsearchOperations {
+        return ElasticsearchRestTemplate(client)
 	}
 
 	@Bean

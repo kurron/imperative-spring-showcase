@@ -6,7 +6,9 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNotEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.slf4j.LoggerFactory
@@ -14,8 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.cloud.aws.messaging.core.QueueMessagingTemplate
 import org.springframework.data.annotation.Id
+import org.springframework.data.elasticsearch.annotations.Document as ElasticsearchDocument
+import org.springframework.data.elasticsearch.core.ElasticsearchOperations
+import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates
 import org.springframework.data.mongodb.core.MongoOperations
-import org.springframework.data.mongodb.core.mapping.Document
+import org.springframework.data.mongodb.core.mapping.Document as MongodbDocument
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
@@ -23,6 +28,7 @@ import org.testcontainers.containers.MongoDBContainer
 import org.testcontainers.containers.localstack.LocalStackContainer
 import org.testcontainers.containers.localstack.LocalStackContainer.Service.SNS
 import org.testcontainers.containers.localstack.LocalStackContainer.Service.SQS
+import org.testcontainers.elasticsearch.ElasticsearchContainer
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
 import org.testcontainers.utility.DockerImageName
@@ -39,10 +45,12 @@ class ShowcaseApplicationTests {
 
     // set the properies required to connect to the test containers
     @Suppress("unused")
-    companion object Initializer  {
+    companion object Initializer {
+        val indexCoordinates = IndexCoordinates.of( Integer.toHexString( ThreadLocalRandom.current().nextInt( Integer.MAX_VALUE ) ) )
         val timeout = Duration.ofSeconds(60)
         val localstackImage = DockerImageName.parse("localstack/localstack:0.11.2")
         val mongodbImage = DockerImageName.parse("mongo:4.4.1")
+        val elasticsearchImage = DockerImageName.parse("docker.elastic.co/elasticsearch/elasticsearch:7.9.3")
 
         @Container
         @JvmStatic
@@ -51,6 +59,10 @@ class ShowcaseApplicationTests {
         @Container
         @JvmStatic
         val localstack = LocalStackContainer(localstackImage).withServices(SQS, SNS).withStartupTimeout(timeout)
+
+        @Container
+        @JvmStatic
+        val elasticsearch = ElasticsearchContainer(elasticsearchImage).withStartupTimeout(timeout)
 
         @DynamicPropertySource
         @JvmStatic
@@ -65,8 +77,8 @@ class ShowcaseApplicationTests {
             registry.add("application.sns-endpoint" ) { localstack.getEndpointConfiguration(SNS).serviceEndpoint }
             registry.add("application.sqs-endpoint" ) { localstack.getEndpointConfiguration(SQS).serviceEndpoint }
             registry.add("spring.data.mongodb.uri" ) { mongodb.replicaSetUrl }
+            registry.add("application.elasticsearch-endpoint" ) { elasticsearch.httpHostAddress }
         }
-
     }
 
     @Autowired
@@ -78,6 +90,9 @@ class ShowcaseApplicationTests {
     @Autowired
     lateinit var mongodb: MongoOperations
 
+    @Autowired
+    lateinit var elasticsearch: ElasticsearchOperations
+
     // shared references
     var alpha: CreateQueueResult? = null
     var bravo: CreateQueueResult? = null
@@ -88,16 +103,18 @@ class ShowcaseApplicationTests {
     fun setup() {
         logger.debug( "setup" )
         alpha = lowLevelSQS.createQueue("alpha")
-        Assertions.assertTrue( 200 == alpha!!.sdkHttpMetadata.httpStatusCode )
+        assertTrue( 200 == alpha!!.sdkHttpMetadata.httpStatusCode )
         bravo = lowLevelSQS.createQueue("bravo")
-        Assertions.assertTrue( 200 == bravo!!.sdkHttpMetadata.httpStatusCode )
+        assertTrue( 200 == bravo!!.sdkHttpMetadata.httpStatusCode )
+        assertTrue( elasticsearch.indexOps( indexCoordinates ).create() )
     }
 
     @AfterEach
     fun teardown() {
         logger.debug( "teardown" )
-        Assertions.assertTrue( 200 == lowLevelSQS.deleteQueue(alpha!!.queueUrl).sdkHttpMetadata.httpStatusCode )
-        Assertions.assertTrue( 200 == lowLevelSQS.deleteQueue(bravo!!.queueUrl).sdkHttpMetadata.httpStatusCode )
+        assertTrue( 200 == lowLevelSQS.deleteQueue(alpha!!.queueUrl).sdkHttpMetadata.httpStatusCode )
+        assertTrue( 200 == lowLevelSQS.deleteQueue(bravo!!.queueUrl).sdkHttpMetadata.httpStatusCode )
+        assertTrue( elasticsearch.indexOps( indexCoordinates ).delete() )
     }
 
     fun randomHexValue(): String = Integer.toHexString( ThreadLocalRandom.current().nextInt( Integer.MAX_VALUE ) ).toUpperCase()
@@ -113,7 +130,7 @@ class ShowcaseApplicationTests {
         assertEquals(sent, received) { "Messages do not match!" }
     }
 
-    @Document
+    @MongodbDocument
     data class Person @JvmOverloads constructor (@Id var id: String = UUID.randomUUID().toString(), var name: String = "defaulted", var age: Int = 0 )
 
     @Test
@@ -124,4 +141,11 @@ class ShowcaseApplicationTests {
         assertEquals(written, read) { "Documents do not match!" }
     }
 
+    @ElasticsearchDocument( indexName = "test", type = "article" )
+    data class Article @JvmOverloads constructor (@Id var id: String = UUID.randomUUID().toString(), var title: String = "defaulted" )
+
+    @Test
+    fun elasticsearchWorks() {
+        assertTrue(elasticsearch.indexOps( indexCoordinates ).exists()) { "Index does not exist!" }
+    }
 }

@@ -3,6 +3,7 @@ application:
   sns-endpoint: http://localhost:4566
   sns-topic: ronbo
   sqs-endpoint: http://localhost:4566
+  elasticsearch-endpoint: http://localhost:1234
 cloud:
   aws:
     region:
