@@ -18,7 +18,6 @@ class ShowcaseApplication {
 
 	@Bean
 	fun restTemplate() = RestTemplateBuilder().build()!!
-
 }
 
 fun main(args: Array<String>) {

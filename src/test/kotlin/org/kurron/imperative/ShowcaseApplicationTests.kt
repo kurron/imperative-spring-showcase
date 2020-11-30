@@ -143,11 +143,7 @@ class ShowcaseApplicationTests {
         fun notificationMessagingTemplate(sns: AmazonSNS) = NotificationMessagingTemplate(sns)
 
         @Bean
-        @Profile("!stubbed")
-        fun outboundMessagingGateway(template: NotificationMessagingTemplate, configuration: ApplicationConfiguration) = SimpleNotificationServiceGateway(template, configuration)
-
-        @Bean
-        @Profile("stubbed")
+        //@Profile("stubbed")
         fun nullOutboundMessagingGateway() = NullNotificationServiceGateway()
     }
 
