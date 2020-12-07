@@ -56,6 +56,7 @@ Details about this project are contained in the link:guidebook/guidebook.adoc[gu
 * pink - bounded context names
 * Allen Holub does it a little different using fewer cards
 * an Affinity Map is a CRC for each role, e.g. GM creates World, assigns starting character points
+* https://kurron.atlassian.net/jira/software/projects/ALPHA/boards/1[Kanban Board]
 
 == Stories
 .*Sample Card*
