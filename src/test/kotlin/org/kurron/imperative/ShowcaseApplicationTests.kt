@@ -2,6 +2,7 @@ package org.kurron.imperative
 
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.kurron.imperative.configuration.AlphaProperties
 import org.kurron.imperative.configuration.ApplicationConfiguration
@@ -37,7 +38,7 @@ class ShowcaseApplicationTests {
     @Autowired
     lateinit var inner: BravoProperties
 
-    val logger = LoggerFactory.getLogger( ShowcaseApplicationTests::class.java )
+    val logger = LoggerFactory.getLogger(ShowcaseApplicationTests::class.java)
 
     @BeforeEach
     fun setup() {
@@ -47,6 +48,24 @@ class ShowcaseApplicationTests {
     @AfterEach
     fun teardown() {
         logger.debug( "teardown" )
+    }
+
+    @Nested
+    inner class GroupAlpha {
+        @Test
+        fun firstTest() {}
+
+        @Test
+        fun secondTest() {}
+    }
+
+    @Nested
+    inner class GroupBravo {
+        @Test
+        fun firstTest() {}
+
+        @Test
+        fun secondTest() {}
     }
 
     @Test
