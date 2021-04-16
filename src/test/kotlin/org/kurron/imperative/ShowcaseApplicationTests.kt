@@ -13,10 +13,12 @@ import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Import
 import org.springframework.core.env.Environment
-import org.springframework.core.env.get
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
+import org.testcontainers.containers.MongoDBContainer
+import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
+import org.testcontainers.utility.DockerImageName
 import java.time.Duration
 
 @SpringBootTest(classes = [ApplicationConfiguration::class], webEnvironment = SpringBootTest.WebEnvironment.NONE, properties = ["showcase.inner.delta=24h"] )
@@ -26,12 +28,20 @@ class ShowcaseApplicationTests {
 
     @Suppress("unused")
     companion object {
+        val timeout = Duration.ofSeconds(60)
+        val mongodbImage = DockerImageName.parse("mongo:4.4.1")
+
+        @Container
+        val mongodb = MongoDBContainer(mongodbImage).withStartupTimeout(timeout)
+
         @DynamicPropertySource
         @JvmStatic
         fun runsBeforeSpringStartsUp(registry: DynamicPropertyRegistry) {
             registry.add("showcase.outer.bravo") { 1995 }
+            registry.add("mongodb.url") { mongodb.replicaSetUrl }
         }
     }
+
 
     @TestConfiguration
     class AddsToProductionConfiguration(private val configuration: BravoProperties) {
@@ -89,7 +99,9 @@ class ShowcaseApplicationTests {
         println("duration: $duration")
         Assertions.assertEquals(Duration.ofHours(24), duration, "Property was not overridden by the test!")
         Assertions.assertNotNull(environment, "Environment wasn't injected!")
-        Assertions.assertEquals("1995", environment.get("showcase.outer.bravo"), "Property was not overridden by the DynamicPropertySource!")
+        Assertions.assertEquals("1995", environment.getProperty("showcase.outer.bravo"), "Property was not overridden by the DynamicPropertySource!")
+        Assertions.assertNotNull(environment.getProperty("mongodb.url"), "MongoDB URL wasn't captured!")
+        println("MongoDB URL: ${environment.getProperty("mongodb.url")}")
     }
 
     @Suppress("unused")
