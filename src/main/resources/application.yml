@@ -2,6 +2,9 @@
 showcase:
   alpha: This is a string
   bravo: 21
+  inner:
+    charlie: true
+    delta: 10s
 
 cloud:
   aws:

@@ -3,8 +3,11 @@ package org.kurron.imperative
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.kurron.imperative.configuration.AlphaProperties
 import org.kurron.imperative.configuration.ApplicationConfiguration
+import org.kurron.imperative.configuration.BravoProperties
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.test.context.DynamicPropertyRegistry
@@ -28,6 +31,12 @@ class ShowcaseApplicationTests {
     class ShowcaseApplicationTestsConfiguration {
     }
 
+    @Autowired
+    lateinit var outer: AlphaProperties
+
+    @Autowired
+    lateinit var inner: BravoProperties
+
     val logger = LoggerFactory.getLogger( ShowcaseApplicationTests::class.java )
 
     @BeforeEach
@@ -42,6 +51,7 @@ class ShowcaseApplicationTests {
 
     @Test
     fun applicationStarts() {
-
+        println("outer: $outer")
+        println("inner: $inner")
     }
 }

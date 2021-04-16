@@ -17,7 +17,7 @@ import org.springframework.web.client.RestOperations
  * Spring beans are defined here.
  */
 @SpringBootConfiguration
-@EnableConfigurationProperties(*[AlphaProperties::class])
+@EnableConfigurationProperties(*[AlphaProperties::class,BravoProperties::class])
 class ApplicationConfiguration(private val alpha: AlphaProperties) {
     @Bean
     fun logAwareBeanPostProcessor() = FeedbackAwareBeanPostProcessor()
