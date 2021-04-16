@@ -8,12 +8,12 @@ import com.amazonaws.services.sqs.AmazonSQSAsync
 import com.amazonaws.services.sqs.AmazonSQSAsyncClientBuilder
 import com.amazonaws.services.sqs.model.CreateQueueResult
 import com.fasterxml.jackson.annotation.JsonProperty
+import io.awspring.cloud.messaging.config.QueueMessageHandlerFactory
+import io.awspring.cloud.messaging.core.NotificationMessagingTemplate
+import io.awspring.cloud.messaging.core.QueueMessagingTemplate
 import org.elasticsearch.client.RestHighLevelClient
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertFalse
-import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -22,11 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.TestConfiguration
-import org.springframework.cloud.aws.messaging.config.QueueMessageHandlerFactory
-import org.springframework.cloud.aws.messaging.core.NotificationMessagingTemplate
-import org.springframework.cloud.aws.messaging.core.QueueMessagingTemplate
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Profile
 import org.springframework.data.annotation.Id
 import org.springframework.data.elasticsearch.client.ClientConfiguration
 import org.springframework.data.elasticsearch.client.RestClients
@@ -207,7 +203,7 @@ class ShowcaseApplicationTests {
         assertEquals(written, read) { "Documents do not match!" }
     }
 
-    @ElasticsearchDocument( indexName = "test", type = "article" )
+    @ElasticsearchDocument( indexName = "test" )
     data class Article @JvmOverloads constructor (@Id var id: String = UUID.randomUUID().toString(), var title: String = "defaulted" )
 
     @Test
