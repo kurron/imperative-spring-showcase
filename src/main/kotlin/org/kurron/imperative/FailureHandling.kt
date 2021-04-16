@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
 import java.net.URI
+import java.util.concurrent.ThreadLocalRandom
 
 /**
  * The collection of all API feedback, used to assemble REST responses.
@@ -101,7 +102,7 @@ interface RestContext: FeedbackContext {
 /**
  * Signals a failure scenario that was trapped by the application logic and should show up in the API response.
  */
-open class ApiException(val context: RestContext, vararg messageArgument: Any): Exception(MessageFormatter.arrayFormat( context.messageFormat, messageArgument ).message )
+open class InboundGatewayiException(val context: RestContext, vararg messageArgument: Any): Exception(MessageFormatter.arrayFormat( context.messageFormat, messageArgument ).message )
 
 /**
  * This class handles both application and system exceptions, translating them into the standard vnd.error format sent as the API response.
@@ -114,8 +115,8 @@ class GlobalApiExceptionHandler: ResponseEntityExceptionHandler() {
         return wrapDetails(failure.message!!, HttpStatus.INTERNAL_SERVER_ERROR, randomHexString(), assembleHelpLink( 0 ))
     }
 
-    @ExceptionHandler( ApiException::class )
-    fun applicationFailureHandler(failure: ApiException): ResponseEntity<Problem> {
+    @ExceptionHandler( InboundGatewayiException::class )
+    fun applicationFailureHandler(failure: InboundGatewayiException): ResponseEntity<Problem> {
         return wrapDetails(failure.message!!, failure.context.status, randomHexString(), assembleHelpLink( failure.context.code ))
     }
 
@@ -142,4 +143,7 @@ class GlobalApiExceptionHandler: ResponseEntityExceptionHandler() {
         val mediaType = MediaType.parseMediaType("application/vnd.error+json")
         return ResponseEntity.status(status).contentType(mediaType).body( details )
     }
+
+    private fun randomHexString() = Integer.toHexString( ThreadLocalRandom.current().nextInt( Integer.MAX_VALUE ) ).toUpperCase()
+
 }

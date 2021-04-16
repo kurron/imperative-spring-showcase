@@ -27,7 +27,7 @@ interface FeedbackAware {
  * This object will inject a feedback provider into any beans that indicate they want it.
  */
 class FeedbackAwareBeanPostProcessor: BeanPostProcessor {
-    override fun postProcessBeforeInitialization(bean: Any, beanName: String): Any? {
+    override fun postProcessBeforeInitialization(bean: Any, beanName: String): Any {
         return if ( bean is FeedbackAware ) {
             bean.feedback = LoggingProvider( LoggerFactory.getLogger( bean.javaClass ) )
             bean
@@ -37,7 +37,7 @@ class FeedbackAwareBeanPostProcessor: BeanPostProcessor {
         }
     }
 
-    override fun postProcessAfterInitialization(bean: Any, beanName: String): Any? {
+    override fun postProcessAfterInitialization(bean: Any, beanName: String): Any {
         return bean
     }
 }

@@ -1,9 +1,8 @@
 ---
-application:
-  sns-endpoint: http://localhost:4566
-  sns-topic: ronbo
-  sqs-endpoint: http://localhost:4566
-  elasticsearch-endpoint: http://localhost:1234
+showcase:
+  alpha: This is a string
+  bravo: 21
+
 cloud:
   aws:
     region:
