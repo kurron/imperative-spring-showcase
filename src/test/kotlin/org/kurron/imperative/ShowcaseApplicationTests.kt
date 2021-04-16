@@ -20,7 +20,7 @@ import org.testcontainers.junit.jupiter.Testcontainers
 import java.time.Duration
 
 @SpringBootTest(classes = [ApplicationConfiguration::class], webEnvironment = SpringBootTest.WebEnvironment.NONE, properties = ["showcase.inner.delta=24h"] )
-@Import(ShowcaseApplicationTests.ShowcaseApplicationTestsConfiguration::class)
+@Import(ShowcaseApplicationTests.AddsToProductionConfiguration::class)
 @Testcontainers(disabledWithoutDocker = true)
 class ShowcaseApplicationTests {
 
@@ -34,7 +34,7 @@ class ShowcaseApplicationTests {
     }
 
     @TestConfiguration
-    class ShowcaseApplicationTestsConfiguration(private val configuration: BravoProperties) {
+    class AddsToProductionConfiguration(private val configuration: BravoProperties) {
         @Bean
         fun someDuration(): Duration = configuration.delta
     }
