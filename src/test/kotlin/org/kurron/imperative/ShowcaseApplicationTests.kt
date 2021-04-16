@@ -1,9 +1,8 @@
 package org.kurron.imperative
 
-import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Nested
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.*
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.MethodSource
 import org.kurron.imperative.configuration.AlphaProperties
 import org.kurron.imperative.configuration.ApplicationConfiguration
 import org.kurron.imperative.configuration.BravoProperties
@@ -72,5 +71,15 @@ class ShowcaseApplicationTests {
     fun applicationStarts() {
         println("outer: $outer")
         println("inner: $inner")
+    }
+
+    @Suppress("unused")
+    private fun dataProvider() = listOf( TestData("foo", "foo"), TestData("bar","bar"))
+    data class TestData(val input: String?, val expected: String?)
+
+    @ParameterizedTest
+    @MethodSource("dataProvider")
+    fun parameterizedTest(data:TestData) {
+        Assertions.assertEquals(data.input, data.expected, "Values do not match!")
     }
 }
