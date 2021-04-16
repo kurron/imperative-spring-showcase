@@ -61,23 +61,23 @@ class ShowcaseApplicationTests {
     @Nested
     inner class GroupAlpha {
         @Test
-        fun firstTest() {}
+        fun `given one then foo`() {}
 
         @Test
-        fun secondTest() {}
+        fun `given two then bar`() {}
     }
 
     @Nested
     inner class GroupBravo {
         @Test
-        fun firstTest() {}
+        fun `given one then foo`() {}
 
         @Test
-        fun secondTest() {}
+        fun `given two then bar`() {}
     }
 
     @Test
-    fun applicationStarts() {
+    fun `verify that the test environment starts properly`() {
         println("outer: $outer")
         println("inner: $inner")
         Assertions.assertNotNull(duration, "Durations wasn't injected!")
@@ -91,7 +91,7 @@ class ShowcaseApplicationTests {
 
     @ParameterizedTest
     @MethodSource("dataProvider")
-    fun parameterizedTest(data:TestData) {
+    fun `run the same test against various data`(data:TestData) {
         Assertions.assertEquals(data.input, data.expected, "Values do not match!")
     }
 }
