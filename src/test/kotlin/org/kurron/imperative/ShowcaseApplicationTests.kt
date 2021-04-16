@@ -12,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Import
+import org.springframework.core.env.Environment
+import org.springframework.core.env.get
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.testcontainers.junit.jupiter.Testcontainers
@@ -26,8 +28,8 @@ class ShowcaseApplicationTests {
     companion object {
         @DynamicPropertySource
         @JvmStatic
-        fun registerDynamicProperties(registry: DynamicPropertyRegistry) {
-            registry.add("cloud.aws.region.auto") { false }
+        fun runsBeforeSpringStartsUp(registry: DynamicPropertyRegistry) {
+            registry.add("showcase.outer.bravo") { 1995 }
         }
     }
 
@@ -45,6 +47,9 @@ class ShowcaseApplicationTests {
 
     @Autowired
     lateinit var duration: Duration
+
+    @Autowired
+    lateinit var environment: Environment
 
     val logger = LoggerFactory.getLogger(ShowcaseApplicationTests::class.java)
 
@@ -83,6 +88,8 @@ class ShowcaseApplicationTests {
         Assertions.assertNotNull(duration, "Durations wasn't injected!")
         println("duration: $duration")
         Assertions.assertEquals(Duration.ofHours(24), duration, "Property was not overridden by the test!")
+        Assertions.assertNotNull(environment, "Environment wasn't injected!")
+        Assertions.assertEquals("1995", environment.get("showcase.outer.bravo"), "Property was not overridden by the DynamicPropertySource!")
     }
 
     @Suppress("unused")
