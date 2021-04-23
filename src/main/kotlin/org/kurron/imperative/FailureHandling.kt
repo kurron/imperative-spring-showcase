@@ -102,21 +102,22 @@ interface RestContext: FeedbackContext {
 /**
  * Signals a failure scenario that was trapped by the application logic and should show up in the API response.
  */
-open class InboundGatewayException(val context: RestContext, vararg messageArgument: Any): Exception(MessageFormatter.arrayFormat( context.messageFormat, messageArgument ).message )
+open class RestGatewayException(val context: RestContext, vararg messageArgument: Any): Exception(MessageFormatter.arrayFormat( context.messageFormat, messageArgument ).message )
 
 /**
  * This class handles both application and system exceptions, translating them into the standard vnd.error format sent as the API response.
  */
+@Suppress("unused")
 @RestControllerAdvice
-class GlobalApiExceptionHandler: ResponseEntityExceptionHandler() {
+class GlobalRestExceptionHandler: ResponseEntityExceptionHandler() {
 
     @ExceptionHandler( Exception::class )
     fun fallbackHandler(failure: Exception): ResponseEntity<Problem> {
         return wrapDetails(failure.message!!, HttpStatus.INTERNAL_SERVER_ERROR, randomHexString(), assembleHelpLink( 0 ))
     }
 
-    @ExceptionHandler( InboundGatewayException::class )
-    fun applicationFailureHandler(failure: InboundGatewayException): ResponseEntity<Problem> {
+    @ExceptionHandler( RestGatewayException::class )
+    fun applicationFailureHandler(failure: RestGatewayException): ResponseEntity<Problem> {
         return wrapDetails(failure.message!!, failure.context.status, randomHexString(), assembleHelpLink( failure.context.code ))
     }
 
