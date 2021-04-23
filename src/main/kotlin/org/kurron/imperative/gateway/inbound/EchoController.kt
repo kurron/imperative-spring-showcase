@@ -50,5 +50,5 @@ class EchoController(private val processor: EchoProcessor): AbstractLogAware() {
     data class Stuff( val zulu: String, val alpha: String, val hotel: String, val blank: String )
 
     // just to show that failures can also be housed in individual failure classes
-    class RandomizeFailure: InboundGatewayiException( ApiFeedback.RANDOM_FAILURE, "Hard coded." )
+    class RandomizeFailure: InboundGatewayException( ApiFeedback.RANDOM_FAILURE, "Hard coded." )
 }
