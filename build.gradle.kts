@@ -29,6 +29,7 @@ springBoot {
 extra["snippetsDir"] = file("build/generated-snippets")
 extra["springCloudVersion"] = "2020.0.3"
 extra["testcontainersVersion"] = "1.16.0"
+extra["cucumberVersion"] = "6.10.4"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
@@ -46,13 +47,12 @@ dependencies {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 	}
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
-	testImplementation("io.awspring.cloud:spring-cloud-starter-aws-messaging:2.3.1")
-	testImplementation("org.springframework.boot:spring-boot-starter-data-elasticsearch")
 	testImplementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 	testImplementation("org.testcontainers:junit-jupiter")
-	testImplementation("org.testcontainers:elasticsearch")
 	testImplementation("org.testcontainers:mongodb")
 	testImplementation("org.testcontainers:localstack")
+	testImplementation( "io.cucumber:cucumber-java8:${property("cucumberVersion")}")
+	testImplementation( "io.cucumber:cucumber-junit:${property("cucumberVersion")}")
 }
 
 dependencyManagement {
