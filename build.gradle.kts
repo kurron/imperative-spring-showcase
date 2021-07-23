@@ -1,11 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-  id("org.springframework.boot") version "2.4.5"
+  id("org.springframework.boot") version "2.5.3"
   id("io.spring.dependency-management") version "1.0.11.RELEASE"
   id("org.asciidoctor.convert") version "1.5.8"
-  kotlin("jvm") version "1.4.32"
-  kotlin("plugin.spring") version "1.4.32"
+  kotlin("jvm") version "1.5.21"
+  kotlin("plugin.spring") version "1.5.21"
 }
 
 group = "org.kurron"
@@ -27,8 +27,8 @@ springBoot {
 }
 
 extra["snippetsDir"] = file("build/generated-snippets")
-extra["springCloudVersion"] = "2020.0.2"
-extra["testcontainersVersion"] = "1.15.2"
+extra["springCloudVersion"] = "2020.0.3"
+extra["testcontainersVersion"] = "1.16.0"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
