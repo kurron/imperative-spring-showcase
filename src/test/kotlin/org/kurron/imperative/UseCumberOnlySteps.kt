@@ -1,4 +1,4 @@
-package org.kurron.imperative.features.abilities.testers
+package org.kurron.imperative
 
 import io.cucumber.java8.En
 import io.cucumber.java8.PendingException

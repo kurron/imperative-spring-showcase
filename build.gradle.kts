@@ -18,6 +18,10 @@ configurations {
 	}
 }
 
+val cucumberRuntime by configurations.creating {
+	extendsFrom(configurations["testImplementation"])
+}
+
 repositories {
 	mavenCentral()
 }
@@ -71,6 +75,20 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
   useJUnitPlatform()
+}
+
+// https://github.com/eaneto/gradle-kotlin-dsl-cucumber-configuration
+task("cucumber") {
+	dependsOn("assemble", "compileTestJava")
+	doLast {
+		javaexec {
+			mainClass.set("io.cucumber.core.cli.Main")
+			classpath = cucumberRuntime + sourceSets.main.get().output + sourceSets.test.get().output
+			// Change glue for your project package where the step definitions are.
+			// And where the feature files are.
+			args = listOf("--plugin", "pretty", "--glue", "org.kurron.imperative", "src/test/resources")
+		}
+	}
 }
 
 /*
