@@ -47,16 +47,16 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
-	testImplementation("org.springframework.boot:spring-boot-starter-test") {
-		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
-	}
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
 	testImplementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 	testImplementation("org.testcontainers:junit-jupiter")
 	testImplementation("org.testcontainers:mongodb")
 	testImplementation("org.testcontainers:localstack")
 	testImplementation( "io.cucumber:cucumber-java8:${property("cucumberVersion")}")
+	testImplementation( "io.cucumber:cucumber-java:${property("cucumberVersion")}")
 	testImplementation( "io.cucumber:cucumber-junit:${property("cucumberVersion")}")
+	testImplementation( "io.cucumber:cucumber-spring:${property("cucumberVersion")}")
 }
 
 dependencyManagement {
